@@ -144,22 +144,29 @@ class DonationController extends Controller
         }else{
             $request->session()->flash('msg_error', $donation->msg);
         }
+        
 
         if($request->hasFile('docs')) {
-            $donationDoc = [];
+            $donationDocs = [];
             if (is_array($request->docs)) {
                 foreach ($request->docs as $key => $val) {
-                    $donationDoc["file_" . $key] = $val;
+                    //$donationDoc["file_" . $key] = file_get_contents($val->getRealPath());
+                    $donationDocs[] = [
+                        "name" => "file_" . $key,
+                        "contents" => file_get_contents($val->getRealPath()),
+                        "filename" => $val->getClientOriginalName()
+                    ];
                 }
             }
 
-            $donationDoc["donationProgramId"] = $request->id;
-//dd($donationDoc);
-            $donation = $this->httpClient->sendRequestDoc($this->httpClient->apiUrl . 'medical-records/add', 'POST', $donationDoc, "application/x-www-form-urlencoded");
-            if ($donation->success == true) {
-                $request->session()->flash('msg_success', $donation->msg);
+            $donationDocs[]=["name" => "donationProgramId",  "contents"=> $request->id];
+            //dd($donationDocs);
+            
+            $res = $this->httpClient->sendRequestDoc($this->httpClient->apiUrl . 'donation/medical-records/add', 'POST', $donationDocs, "multipart/form-data");
+            if ($res->success == true) {
+                $request->session()->flash('msg_success', $res->msg);
             } else {
-                $request->session()->flash('msg_error', $donation->msg);
+                $request->session()->flash('msg_error', $res->msg);
             }
         }
 

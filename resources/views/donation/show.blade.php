@@ -55,7 +55,7 @@
             <div class="border">
             @foreach($donation->docs as $doc)
                 <div class="col-md-2 pt-1 pb-1">
-                    <?php $img = $client->sendRequestDoc($client->apiUrl.'donation/medical-records/view/'.$doc->{'_id'}.'/1', 'GET'); ?>
+                    <?php $img = $client->sendMedicalDocRetriveRequest($client->apiUrl.'donation/medical-records/view/'.$doc->{'_id'}.'/1', 'GET'); ?>
                     <img src="data:image/jpg;base64,{{base64_encode($img)}}" alt="..." class="img-thumbnail">
                 </div>
             @endforeach
