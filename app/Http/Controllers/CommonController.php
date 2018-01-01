@@ -17,11 +17,11 @@ class CommonController extends Controller
         $this->client = new Client(['cookies' => true, 'verify' => false]);
 
         if(env('API_MODE') == 0) {
-            $this->apiUrl = "https://103.23.41.189:3000/api/admin/v1/";
+            $this->apiUrl = "https://localhost:3000/api/admin/v1/";
         }
         elseif(env('API_MODE') == 1)
         {
-            $this->apiUrl = "https://103.23.41.189:3000/api/admin/v1/";
+            $this->apiUrl = "https://localhost:3000/api/admin/v1/";
         }
 
     }
@@ -71,18 +71,33 @@ class CommonController extends Controller
     }
 
 
-    public function sendRequestDoc($url, $method = 'GET', $query=[], $content_type = 'image/jpeg')
+    public function sendRequestDoc($url, $method = 'POST', $donationDocs=[], $content_type = 'image/jpeg')
     {
         $result = $this->client->request($method, $url, [
-            'query' => $query,
             'allow_redirects' => false,
             'headers' => [
-                'User-Agent' => 'testing/1.0',
-                'Accept'     => $content_type,
-                'Content-Type' => $content_type,
                 'x-accept-content-type' => $content_type,
                 'x-auth-token'  => 'YAlx',
                 'x-auth-user-id' => 'userId'
+            ],
+            'multipart' => $donationDocs
+        ]);
+
+        $result->getStatusCode();
+        $body = $result->getBody();
+        $content = $body->getContents();
+        $data = json_decode($body);
+        return $data;
+    }
+    
+    public function sendMedicalDocRetriveRequest($url, $method = 'POST', $donationDocs=[], $content_type = 'image/jpeg')
+    {
+        $result = $this->client->request($method, $url, [
+            'allow_redirects' => false,
+            'headers' => [
+                'x-accept-content-type' => $content_type,
+                'x-auth-token'  => 'YAlx',
+                'x-auth-user-id' => '01759239067'
             ]
         ]);
 
