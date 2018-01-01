@@ -154,7 +154,6 @@ class DonationController extends Controller
             }
 
             $donationDoc["donationProgramId"] = $request->id;
-//dd($donationDoc);
             $donation = $this->httpClient->sendRequestDoc($this->httpClient->apiUrl . 'medical-records/add', 'POST', $donationDoc, "application/x-www-form-urlencoded");
             if ($donation->success == true) {
                 $request->session()->flash('msg_success', $donation->msg);
