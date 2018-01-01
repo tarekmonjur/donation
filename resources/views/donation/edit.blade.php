@@ -5,7 +5,7 @@
     <h4>Edit Donation</h4>
     <div class="row">
         <div class="col-md-12">
-            <form method="post" action="{{url('donations/edit')}}">
+            <form method="post" action="{{url('donations/edit')}}" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <input type="hidden" value="{{$donation->_id}}" name="id">
                 <input type="hidden" value="{{$donation->title}}" name="title">
@@ -43,9 +43,9 @@
                         <label for="male">Gender</label>
                         <br>
                         <label for="male">Male</label>
-                        <input type="radio" id="male" name="gender" value="MALE">
+                        <input type="radio" id="male" name="gender" value="MALE" @if(isset($donation->patientProfile->gender) && $donation->patientProfile->gender == "MALE") checked @endif>
                         <label for="male">Female</label>
-                        <input type="radio" id="female" name="gender" value="FEMALE">
+                        <input type="radio" id="female" name="gender" value="FEMALE" @if(isset($donation->patientProfile->gender) && $donation->patientProfile->gender == "FEMALE") checked @endif>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="contactInfo">Contact Info</label>
@@ -76,14 +76,14 @@
                             </div>
                         @endforeach
                     </div>
-
-                    <div class="form-row border p-2">
-                        <div class="form-group col-md-4">
-                            <label for="file">Upload Document</label>
-                            <input type="file" class="form-control" id="file" name="file[]">
-                        </div>
-                    </div>
                 @endif
+
+                <div class="form-row border p-2">
+                    <div class="form-group col-md-4">
+                        <label for="docs">Upload Document</label>
+                        <input type="file" class="form-control" id="docs" name="docs[]" multiple>
+                    </div>
+                </div>
 
                 @if($donation->patientProfile->paymentInfo)
                 <h5 class="text-center pt-3">Payment Info</h5>

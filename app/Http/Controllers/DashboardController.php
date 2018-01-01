@@ -42,10 +42,10 @@ class DashboardController extends Controller
     public function logs()
     {
         $data['logs'] = [];
-//        $logs = $this->httpClient->sendRequest($this->httpClient->apiUrl.'donation/all','POST', []);
-//        if($logs->success == true) {
-//            $data['logs'] = ($logs->data)?:[];
-//        }
+        $logs = $this->httpClient->sendRequest($this->httpClient->apiUrl.'system-log/all','POST', []);
+        if($logs->success == true) {
+            $data['logs'] = ($logs->data->logs)?:[];
+        }
         return view('logs')->with($data);
     }
 
