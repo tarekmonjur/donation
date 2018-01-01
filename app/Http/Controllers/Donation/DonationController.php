@@ -145,19 +145,23 @@ class DonationController extends Controller
             $request->session()->flash('msg_error', $donation->msg);
         }
 
-//        if($request->hasFile('file')){
-//            if(is_array($request->file())){
-//                dd($request->file);
-//            }
-//            dd($request->file);
+        if($request->hasFile('docs')) {
             $donationDoc = [];
-//            $donation = $this->httpClient->sendRequest($this->httpClient->apiUrl.'donation/add','POST', $donationDoc);
-//            if($donation->success == true) {
-//                $request->session()->flash('msg_success', $donation->msg);
-//            }else{
-//                $request->session()->flash('msg_error', $donation->msg);
-//            }
-//        }
+            if (is_array($request->docs)) {
+                foreach ($request->docs as $key => $val) {
+                    $donationDoc["file_" . $key] = $val;
+                }
+            }
+
+            $donationDoc["donationProgramId"] = $request->id;
+//dd($donationDoc);
+            $donation = $this->httpClient->sendRequestDoc($this->httpClient->apiUrl . 'medical-records/add', 'POST', $donationDoc, "application/x-www-form-urlencoded");
+            if ($donation->success == true) {
+                $request->session()->flash('msg_success', $donation->msg);
+            } else {
+                $request->session()->flash('msg_error', $donation->msg);
+            }
+        }
 
 //        dd($donationUpdate, json_encode($donationUpdate));
         return redirect()->back();
