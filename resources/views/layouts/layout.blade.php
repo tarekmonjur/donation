@@ -12,6 +12,7 @@
     <title>{{ config('app.name', 'AFC DONATION') }}</title>
 
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.min.css')}}">
     <link href="{{asset('css/bootstrap-datepicker.standalone.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/sweetalert2.css')}}" rel="stylesheet">
     <link href="{{asset('css/dashboard.css')}}" rel="stylesheet">
@@ -32,7 +33,7 @@
         <div class="row">
             @include('layouts.common.sidebar')
 
-            <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+            <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3 pb-3">
                 @if(Session('msg_success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Success!</strong> {{Session('msg_success')}}

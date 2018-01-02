@@ -3,9 +3,9 @@
 
     <h2>Donations</h2>
     <div class="table-responsive">
-        <table id="datatable1" class="table table-sm table-bordered">
-            <thead class="thead-dark">
-            <tr>
+        <table id="datatable1" class="table table-sm table-hover">
+            <thead>
+            <tr style="font-size: 12px">
                 <th>#</th>
                 <th>Title</th>
                 <th>Disease Stage</th>
@@ -17,7 +17,7 @@
                 <th>Action</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody style="font-size: 14px">
             @foreach($donations as $donation)
             <tr>
                 <td>{{$loop->iteration}}</td>

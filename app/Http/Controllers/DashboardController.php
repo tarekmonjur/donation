@@ -42,7 +42,17 @@ class DashboardController extends Controller
     public function logs()
     {
         $data['logs'] = [];
-        $logs = $this->httpClient->sendRequest($this->httpClient->apiUrl.'system-log/all','POST', []);
+        $startDate = date("Y-m-d");
+        $endDate = date("Y-m-d");
+        $limit = 21;
+        $skip = 0;
+
+        $logs = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'system-log/all','POST', [
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'limit' => $limit,
+            'skip' => $skip
+        ]);
         if($logs->success == true) {
             $data['logs'] = ($logs->data->logs)?:[];
         }
