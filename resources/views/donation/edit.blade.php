@@ -33,7 +33,7 @@
                 <input type="hidden" value="{{$donation->collectedAmount}}" name="collectedAmount">
                 <input type="hidden" value="{{($donation->activeProgram)?'true':'false'}}" name="activeProgram">
 
-                <div class="form-row border p-2">
+                <div class="form-row border p-2 box_shadow">
                     <div class="form-group col-md-12">
                         <label for="diseaseHistory">Disease History</label>
                         <textarea name="diseaseHistory" class="form-control" rows="5" id="diseaseHistory" placeholder="Enter disease history">{{$donation->diseaseHistory}}</textarea>
@@ -42,7 +42,7 @@
 
                 @if($donation->patientProfile)
                 <h5 class="text-center pt-3">Patient Profile</h5>
-                <div class="form-row border p-2">
+                <div class="form-row border p-2 box_shadow">
                     <div class="form-group col-md-6">
                         <label for="name">Patient Name</label>
                         <input type="text" class="form-control" id="profession" name="name" value="{{$donation->patientProfile->name or ''}}" placeholder="Enter name">
@@ -84,14 +84,14 @@
 
                 @if($donation->docs)
                     <h5 class="text-center pt-3">Documents</h5>
-                    <div class="form-row border p-2" id="docs">
+                    <div class="form-row border p-2 box_shadow" id="docs">
                         @foreach($donation->docs as $doc)
                             <script> callDocs('{{$doc->_id}}'); </script>
                         @endforeach
                     </div>
                 @endif
 
-                <div class="form-row border p-2">
+                <div class="form-row border p-2 box_shadow">
                     <div class="form-group col-md-4">
                         <label for="docs">Upload Document</label>
                         <input type="file" class="form-control" id="docs" name="docs[]" multiple>
@@ -100,7 +100,7 @@
 
                 @if($donation->patientProfile->paymentInfo)
                 <h5 class="text-center pt-3">Payment Info</h5>
-                <div class="form-row border p-2">
+                <div class="form-row border p-2 box_shadow">
                     <div class="form-group col-md-6">
                         <label for="paymentType">Payment Type</label>
                         <input type="text" class="form-control" id="paymentType" name="paymentType" value="{{$donation->patientProfile->paymentInfo->paymentType}}" placeholder="Enter payment type">
@@ -122,7 +122,7 @@
 
                 @if($donation->patientProfile->currentDoctorProfile)
                     <h5 class="text-center pt-3">Current Doctor Profile</h5>
-                    <div class="form-row border p-2">
+                    <div class="form-row border p-2 box_shadow">
                         <div class="form-group col-md-6">
                             <label for="name">Doctor Name</label>
                             <input type="text" class="form-control" id="name" readonly value="{{$donation->patientProfile->currentDoctorProfile->name}}" placeholder="Enter doctor name">
@@ -146,7 +146,7 @@
                     </div>
                 @else
                     <h5 class="text-center pt-3">Current Doctor Profile</h5>
-                    <div class="form-row border p-2">
+                    <div class="form-row border p-2 box_shadow">
                         <div class="form-group col-md-6">
                             <label for="name">Doctor Name</label>
                             <input type="text" class="form-control" id="doctorName" name="name" placeholder="Enter doctor name">
@@ -191,7 +191,7 @@
                         </div>
                 @else
                     <h5 class="text-center pt-3">Seeking Raised By Doctor Profile</h5>
-                    <div class="form-row border p-2">
+                    <div class="form-row border p-2 box_shadow">
                         <div class="form-group col-md-6">
                             <label for="seekingId">ID</label>
                             <input type="text" class="form-control" id="seekingId" name="seekingId" placeholder="Enter id">
@@ -225,5 +225,28 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="docModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body" id="viewDoc"></div>
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+
+@section('script')
+
+    <script>
+        $(document).ready(function(){
+            $(document).on("click", ".docView", function(){
+                var img = $(this).html();
+                $("#viewDoc").html(img);
+                $('#docModal').modal();
+            });
+        });
+    </script>
 
 @endsection

@@ -280,4 +280,27 @@
     </div>
     @endif
 
+    <!-- Modal -->
+    <div class="modal fade" id="docModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body" id="viewDoc"></div>
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+@section('script')
+
+    <script>
+        $(document).ready(function(){
+           $(document).on("click", ".docView", function(){
+              var img = $(this).html();
+              $("#viewDoc").html(img);
+              $('#docModal').modal();
+           });
+        });
+    </script>
+
 @endsection

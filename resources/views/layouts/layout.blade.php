@@ -16,6 +16,11 @@
     <link href="{{asset('css/sweetalert2.css')}}" rel="stylesheet">
     <link href="{{asset('css/dashboard.css')}}" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <style type="text/css">
+        .box_shadow{
+            box-shadow: 0px 0px 3px 0px #e9ecef!important;
+        }
+    </style>
     <script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
 
 </head>
@@ -119,6 +124,6 @@
             });
         });
     </script>
-
+@yield('script')
 </body>
 </html>
