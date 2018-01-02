@@ -76,6 +76,16 @@ class DonationController extends Controller
     }
 
 
+    public function getMedicalRecordDoc($id)
+    {
+        $doc = $this->httpClient->sendMedicalDocRetriveRequest($this->httpClient->apiUrl.'donation/medical-records/view/'.$id.'/1','GET');
+        $result = '<div class="col-md-2 pt-1 pb-1">';
+        $result .= '<img src="data:image/jpg;base64,'.base64_encode($doc).'" class="img-thumbnail">';
+        $result .= '</div>';
+        return $result;
+    }
+
+
     public function edit($id)
     {
         $donation = $this->httpClient->sendRequest($this->httpClient->apiUrl.'donation/'.$id,'GET', []);

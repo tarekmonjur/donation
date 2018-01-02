@@ -1,6 +1,22 @@
 @extends('layouts.layout')
 @section('content')
-@inject('client', 'App\Http\Controllers\CommonController')
+    <script>
+        function callDocs(id) {
+            $.ajax({
+                url: base_url+"/donations/medical-records-doc/"+id,
+                type: "get",
+                dataType: "html",
+                success: function(data){
+                    $("#docs").append(data);
+                },
+                error: function (error) {
+
+                }
+            });
+        }
+
+    </script>
+
     <h2>Donation Details</h2>
     <p>{{$donation->diseaseHistory}}</p>
     <div class="row">
@@ -52,15 +68,12 @@
         <div class="col-md-8">
 
             <h4>Documents</h4>
-            <div class="border">
-            @foreach($donation->docs as $doc)
-                <div class="col-md-2 pt-1 pb-1">
-                    <?php $img = $client->sendMedicalDocRetriveRequest($client->apiUrl.'donation/medical-records/view/'.$doc->{'_id'}.'/1', 'GET'); ?>
-                    <img src="data:image/jpg;base64,{{base64_encode($img)}}" alt="..." class="img-thumbnail">
-                </div>
-            @endforeach
+            <div class="row border" id="docs" style="margin: 0px">
+                @foreach($donation->docs as $doc)
+                    <script> callDocs('{{$doc->_id}}'); </script>
+                @endforeach
             </div>
-
+            <br>
             <div class="table-responsive">
                 <h4>Donation Fund</h4>
                 <table class="table table-sm table-bordered">

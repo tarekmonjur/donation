@@ -50,6 +50,8 @@ Route::group(['prefix'=>'donations'],function(){
     Route::get('/verify/{id}/{status}','Donation\DonationController@verifyDonation');
     Route::get('/add','Donation\DonationController@create');
     Route::get('/{id}','Donation\DonationController@show');
+    Route::get('/medical-records-doc/{id}','Donation\DonationController@getMedicalRecordDoc');
+
     Route::get('/edit/{id}','Donation\DonationController@edit');
     Route::post('/edit','Donation\DonationController@update');
 });

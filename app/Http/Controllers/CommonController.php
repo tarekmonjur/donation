@@ -17,11 +17,11 @@ class CommonController extends Controller
         $this->client = new Client(['cookies' => true, 'verify' => false]);
 
         if(env('API_MODE') == 0) {
-            $this->apiUrl = "https://localhost:3000/api/admin/v1/";
+            $this->apiUrl = "https://103.23.41.189:3000/api/admin/v1/";
         }
         elseif(env('API_MODE') == 1)
         {
-            $this->apiUrl = "https://localhost:3000/api/admin/v1/";
+            $this->apiUrl = "https://103.23.41.189:3000/api/admin/v1/";
         }
 
     }

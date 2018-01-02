@@ -16,6 +16,7 @@
     <link href="{{asset('css/sweetalert2.css')}}" rel="stylesheet">
     <link href="{{asset('css/dashboard.css')}}" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
 
 </head>
 
@@ -49,7 +50,7 @@
         </div>
     </div>
 
-    <script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
+
     <script src="{{asset('js/jquery-3.2.1.slim.min.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/sweetalert2.js')}}"></script>
