@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 @section('content')
     <script>
+        var base_url = '{{url('/')}}';
         function callDocs(id) {
             $.ajax({
                 url: base_url+"/donations/medical-records-doc/"+id,
