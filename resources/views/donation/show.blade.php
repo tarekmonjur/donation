@@ -19,7 +19,7 @@
     </script>
 
     <h2>Donation Details</h2>
-    <p>{{$donation->diseaseHistory}}</p>
+    <p>{{$donation->diseaseHistory or 'No disease history...'}}</p>
     <div class="row">
         <div class="col-md-4 table-responsive">
             <h4>Donation Info</h4>
@@ -43,7 +43,7 @@
                 </tr>
                 <tr>
                     <td>Collected Amount</td>
-                    <td>{{$donation->collectedAmount}}</td>
+                    <td>{{$donation->collectedAmount or '0'}}</td>
                 </tr>
                 <tr>
                     <td>Suffering From</td>
@@ -51,7 +51,9 @@
                 </tr>
                 <tr>
                     <td>Active Program</td>
-                    <td>@if($donation->activeProgram) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
+                    <td>
+                        @if(isset($donation->activeProgram) && $donation->activeProgram == true) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Status</td>
@@ -115,7 +117,7 @@
         </div>
     </div>
 
-    @if($donation->patientProfile)
+    @if(isset($donation->patientProfile))
     <div class="row">
         <div class="col-md-4 table-responsive">
             <h4>Patient Profile</h4>
@@ -131,23 +133,23 @@
                 </tr>
                 <tr>
                     <td>Profession</td>
-                    <td>{{$donation->patientProfile->profession}}</td>
+                    <td>{{$donation->patientProfile->profession or '---'}}</td>
                 </tr>
                 <tr>
                     <td>Address</td>
-                    <td>{{$donation->patientProfile->address}}</td>
+                    <td>{{$donation->patientProfile->address or '---'}}</td>
                 </tr>
                 <tr>
                     <td>Area</td>
-                    <td>{{$donation->patientProfile->area}}</td>
+                    <td>{{$donation->patientProfile->area or '---'}}</td>
                 </tr>
                 <tr>
                     <td>City</td>
-                    <td>{{$donation->patientProfile->city}}</td>
+                    <td>{{$donation->patientProfile->city or '---'}}</td>
                 </tr>
                 <tr>
                     <td>Contact Info</td>
-                    <td>{{$donation->patientProfile->contactInfo}}</td>
+                    <td>{{$donation->patientProfile->contactInfo or '---'}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -184,7 +186,7 @@
     </div>
 
     <div class="row">
-        @if($donation->patientProfile->seekingRaisedByDoctorProfile)
+        @if(isset($donation->patientProfile->seekingRaisedByDoctorProfile))
         <div class="col-md-4 table-responsive">
             <h4>Seeking Raised By Doctor</h4>
             <table class="table table-sm table-bordered">
@@ -218,7 +220,7 @@
         </div>
         @endif
 
-        @if($donation->patientProfile->currentDoctorProfile)
+        @if(isset($donation->patientProfile->currentDoctorProfile))
             <div class="col-md-4 table-responsive">
                 <h4>Current Doctor Profile</h4>
                 <table class="table table-sm table-bordered">
@@ -252,7 +254,7 @@
             </div>
         @endif
 
-        @if($donation->patientProfile->paymentInfo)
+        @if(isset($donation->patientProfile->paymentInfo))
             <div class="col-md-4 table-responsive">
                 <h4>Payment Info</h4>
                 <table class="table table-sm table-bordered">

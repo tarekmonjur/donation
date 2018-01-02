@@ -30,13 +30,13 @@
                 <input type="hidden" value="{{$donation->sufferingFrom}}" name="sufferingFrom">
                 <input type="hidden" value="{{$donation->targetAmount}}" name="targetAmount">
                 <input type="hidden" value="{{$donation->targetDate}}" name="targetDate">
-                <input type="hidden" value="{{$donation->collectedAmount}}" name="collectedAmount">
+                <input type="hidden" value="{{$donation->collectedAmount or '0'}}" name="collectedAmount">
                 <input type="hidden" value="{{($donation->activeProgram)?'true':'false'}}" name="activeProgram">
 
                 <div class="form-row border p-2 box_shadow">
                     <div class="form-group col-md-12">
                         <label for="diseaseHistory">Disease History</label>
-                        <textarea name="diseaseHistory" class="form-control" rows="5" id="diseaseHistory" placeholder="Enter disease history">{{$donation->diseaseHistory}}</textarea>
+                        <textarea name="diseaseHistory" class="form-control" rows="5" id="diseaseHistory" placeholder="Enter disease history">{{$donation->diseaseHistory or 'No disease history...'}}</textarea>
                     </div>
                 </div>
 
@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label for="profession">Profession</label>
-                        <input type="text" class="form-control" id="profession" name="profession" value="{{$donation->patientProfile->profession}}" placeholder="Enter profession">
+                        <input type="text" class="form-control" id="profession" name="profession" value="{{$donation->patientProfile->profession or ''}}" placeholder="Enter profession">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="male">Gender</label>
@@ -65,19 +65,19 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="contactInfo">Contact Info</label>
-                        <input type="text" class="form-control" id="contactInfo" name="contactInfo" value="{{$donation->patientProfile->contactInfo}}" placeholder="Enter contact info">
+                        <input type="text" class="form-control" id="contactInfo" name="contactInfo" value="{{$donation->patientProfile->contactInfo or ''}}" placeholder="Enter contact info">
                     </div>
                     <div class="form-group col-md-12">
                         <label for="address">Address</label>
-                        <textarea name="address" class="form-control" id="address" placeholder="Enter address">{{$donation->patientProfile->address}}</textarea>
+                        <textarea name="address" class="form-control" id="address" placeholder="Enter address">{{$donation->patientProfile->address or ''}}</textarea>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="area">Area</label>
-                        <input type="text" class="form-control" id="area" name="area" value="{{$donation->patientProfile->area}}" placeholder="Enter area">
+                        <input type="text" class="form-control" id="area" name="area" value="{{$donation->patientProfile->area or ''}}" placeholder="Enter area">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="city">City</label>
-                        <input type="text" class="form-control" id="city" name="city" value="{{$donation->patientProfile->city}}" placeholder="Enter city">
+                        <input type="text" class="form-control" id="city" name="city" value="{{$donation->patientProfile->city or ''}}" placeholder="Enter city">
                     </div>
                 </div>
                 @endif
@@ -98,29 +98,49 @@
                     </div>
                 </div>
 
-                @if($donation->patientProfile->paymentInfo)
-                <h5 class="text-center pt-3">Payment Info</h5>
-                <div class="form-row border p-2 box_shadow">
-                    <div class="form-group col-md-6">
-                        <label for="paymentType">Payment Type</label>
-                        <input type="text" class="form-control" id="paymentType" name="paymentType" value="{{$donation->patientProfile->paymentInfo->paymentType}}" placeholder="Enter payment type">
+                @if(isset($donation->patientProfile->paymentInfo))
+                    <h5 class="text-center pt-3">Payment Info</h5>
+                    <div class="form-row border p-2 box_shadow">
+                        <div class="form-group col-md-6">
+                            <label for="paymentType">Payment Type</label>
+                            <input type="text" class="form-control" id="paymentType" name="paymentType" value="{{$donation->patientProfile->paymentInfo->paymentType}}" placeholder="Enter payment type">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="bankName">Bank Name</label>
+                            <input type="text" class="form-control" id="bankName" name="bankName" value="{{$donation->patientProfile->paymentInfo->bankName}}" placeholder="Enter bank name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="bankBranch">bankBranch</label>
+                            <input type="text" class="form-control" id="bankBranch" name="bankBranch" value="{{$donation->patientProfile->paymentInfo->bankBranch}}" placeholder="Enter Bank Branch">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="accountNumber">Account Number</label>
+                            <input type="text" class="form-control" id="accountNumber" name="accountNumber" value="{{$donation->patientProfile->paymentInfo->accountNumber}}" placeholder="Enter account number">
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="bankName">Bank Name</label>
-                        <input type="text" class="form-control" id="bankName" name="bankName" value="{{$donation->patientProfile->paymentInfo->bankName}}" placeholder="Enter bank name">
+                @else
+                    <h5 class="text-center pt-3">Payment Info</h5>
+                    <div class="form-row border p-2 box_shadow">
+                        <div class="form-group col-md-6">
+                            <label for="paymentType">Payment Type</label>
+                            <input type="text" class="form-control" id="paymentType" name="paymentType" placeholder="Enter payment type">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="bankName">Bank Name</label>
+                            <input type="text" class="form-control" id="bankName" name="bankName" placeholder="Enter bank name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="bankBranch">bankBranch</label>
+                            <input type="text" class="form-control" id="bankBranch" name="bankBranch" placeholder="Enter Bank Branch">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="accountNumber">Account Number</label>
+                            <input type="text" class="form-control" id="accountNumber" name="accountNumber" placeholder="Enter account number">
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="bankBranch">bankBranch</label>
-                        <input type="text" class="form-control" id="bankBranch" name="bankBranch" value="{{$donation->patientProfile->paymentInfo->bankBranch}}" placeholder="Enter Bank Branch">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="accountNumber">Account Number</label>
-                        <input type="text" class="form-control" id="accountNumber" name="accountNumber" value="{{$donation->patientProfile->paymentInfo->accountNumber}}" placeholder="Enter account number">
-                    </div>
-                </div>
                 @endif
 
-                @if($donation->patientProfile->currentDoctorProfile)
+                @if(isset($donation->patientProfile->currentDoctorProfile))
                     <h5 class="text-center pt-3">Current Doctor Profile</h5>
                     <div class="form-row border p-2 box_shadow">
                         <div class="form-group col-md-6">

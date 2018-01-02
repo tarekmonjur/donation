@@ -26,7 +26,7 @@
                 <td>{{$donation->targetAmount}}</td>
                 <td>{{date("d M Y",strtotime($donation->targetDate))}}</td>
                 <td>{{$donation->collectedAmount}}</td>
-                <td>@if($donation->activeProgram) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
+                <td>@if(isset($donation->isVerified) && $donation->activeProgram) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
                 <td>
                     @if(isset($donation->isVerified) && $donation->isVerified == true)
                         <span class="badge badge-success">Verified</span>
@@ -36,12 +36,15 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        @if(isset($donation->isVerified) && $donation->isVerified == true)
-                            <a class="btn btn-sm btn-danger" href="#" onclick="return confirmAction('Unverified','Are you sure unverified this?','{{url('/donations/verify/'.$donation->{'_id'}.'/0')}}')">Unverified</a>
-                        @else
-                            <a class="btn btn-sm btn-success" href="#" onclick="return confirmAction('verify','Are you sure verify this?','{{url('/donations/verify/'.$donation->{'_id'}.'/1')}}')">Verify</a>
+                        @if(isset($donation->isPartial) && $donation->isPartial == false)
+                            @if(isset($donation->isVerified) && $donation->isVerified == true)
+                                <a class="btn btn-sm btn-danger" href="#" onclick="return confirmAction('Unverified','Are you sure unverified this?','{{url('/donations/verify/'.$donation->{'_id'}.'/0')}}')">Unverified</a>
+                            @else
+                                <a class="btn btn-sm btn-success" href="#" onclick="return confirmAction('verify','Are you sure verify this?','{{url('/donations/verify/'.$donation->{'_id'}.'/1')}}')">Verify</a>
+                            @endif
                         @endif
-                            <a class="btn btn-sm btn-primary" href="{{url('/donations/edit/'.$donation->{'_id'})}}">Edit</a>
+
+                        <a class="btn btn-sm btn-primary" href="{{url('/donations/edit/'.$donation->{'_id'})}}">Edit</a>
                     </div>
                 </td>
             </tr>
