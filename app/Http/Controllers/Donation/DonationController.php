@@ -31,10 +31,28 @@ class DonationController extends Controller
         $this->httpClient = $httpClient;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $data['donations'] = [];
-        $donations = $this->httpClient->sendRequest($this->httpClient->apiUrl.'donation/all','POST', []);
+
+        if($request->has('search')){
+            $data['isPartial'] = $isPartial = ($request->isPartial == 1 && $request->isPartial == '1')?true:false;
+            $data['isVerified'] = $isVerified = ($request->isVerified == 1 && $request->isVerified == '1')?true:false;
+            $data['isActive'] = $isActive = ($request->isActive == 1 && $request->isActive == '1')?true:false;
+            $searchData = [
+                'isPartial' => $isPartial,
+                'isVerified' => $isVerified,
+                'activeProgram' => $isActive,
+            ];
+            $donations = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'donation/all','POST', $searchData);
+        }else{
+            $data['isPartial'] = true;
+            $data['isVerified'] = true;
+            $data['isActive'] = true;
+            
+            $donations = $this->httpClient->sendRequest($this->httpClient->apiUrl.'donation/all','POST',[]);
+        }
+        
         if($donations->success == true) {
             $data['donations'] = ($donations->data->donatePrograms)?:[];
         }

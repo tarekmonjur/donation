@@ -2,6 +2,35 @@
 @section('content')
 
     <h2>Donations</h2>
+    <form action="" method="get" class="form-inline" style="position: absolute;left: 20%;top: 50px; z-index:999">
+        <div class="form-group">
+            <label><strong>Partial : </strong></label>
+            <select class="form-control col-form-label-sm mx-sm-2" name="isPartial">
+                <option value="1" @if($isPartial == true) selected @endif>Yes</option>
+                <option value="0" @if($isPartial == false) selected @endif>No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label><strong>Verified : </strong></label>
+            <select class="form-control col-form-label-sm mx-sm-2" name="isVerified">
+                <option value="1" @if($isVerified == true) selected @endif>Yes</option>
+                <option value="0" @if($isVerified == false) selected @endif>No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label><strong>Active : </strong></label>
+            <select class="form-control col-form-label-sm mx-sm-2" name="isActive">
+                <option value="1" @if($isActive == true) selected @endif>Yes</option>
+                <option value="0" @if($isActive == false) selected @endif>No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" name="search" class="btn btn-primary btn-sm">Submit</button>
+        </div>
+    </form>
+
     <div class="table-responsive">
         <table id="datatable1" class="table table-sm table-hover">
             <thead>
