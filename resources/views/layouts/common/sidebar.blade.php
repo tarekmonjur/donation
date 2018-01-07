@@ -10,9 +10,9 @@
         <li class="nav-item">
             <a class="nav-link @if($menu == 'logs') active @endif" href="{{url('/logs')}}">Logs</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Export</a>
-        </li>
+        {{--<li class="nav-item">--}}
+            {{--<a class="nav-link" href="#">Export</a>--}}
+        {{--</li>--}}
     </ul>
 
     {{--<ul class="nav nav-pills flex-column">--}}

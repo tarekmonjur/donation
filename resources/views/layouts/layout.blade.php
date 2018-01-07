@@ -16,6 +16,8 @@
     <link href="{{asset('css/bootstrap-datepicker.standalone.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/sweetalert2.css')}}" rel="stylesheet">
     <link href="{{asset('css/dashboard.css')}}" rel="stylesheet">
+    <!-- busy-load -->
+    <link href="{{asset('css/busy_loading.min.css')}}" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <style type="text/css">
         .box_shadow{
@@ -62,10 +64,11 @@
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/sweetalert2.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <!-- busy-load -->
+    <script src="{{asset('js/busy_loading.min.js')}}"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script>
         var baseUrl = '{{url('/')}}';
-
 
 //        function PrintInvoice(elem){
 //            var invoice_print = document.getElementById('invoice_print');
@@ -100,6 +103,7 @@
                 cancelButtonClass: 'btn btn-danger',
                 buttonsStyling: false
             }).then(function () {
+                $.busyLoadFull("show", {});
                 window.location.href = url;
             }, function (dismiss) {
                 if (dismiss === 'cancel') {

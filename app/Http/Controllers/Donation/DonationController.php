@@ -62,6 +62,21 @@ class DonationController extends Controller
         return redirect()->back();
     }
 
+    public function verifyFund(Request $request)
+    {
+        $donation = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'donation/fund/verify','POST', [
+            "donationProgramId" => $request->donation_id,
+            "fundId" => $request->fund_id,
+            "verificationStatus" => ($request->status == 1 || $request->status == '1')?true:false
+        ]);
+        if($donation->success == true) {
+            $request->session()->flash("msg_success", $donation->msg);
+        }else{
+            $request->session()->flash("msg_error", $donation->msg);
+        }
+        return redirect()->back();
+    }
+
 
     public function show($id)
     {

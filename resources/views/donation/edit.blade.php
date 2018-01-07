@@ -191,24 +191,12 @@
                 @endif
 
                 @if(isset($donation->patientProfile->seekingRaisedByDoctorProfile))
-                        <div class="form-group col-md-6">
-                            <input type="hidden" class="form-control" id="seekingId" name="seekingId" value="{{$donation->patientProfile->seekingRaisedByDoctorProfile->id}}" placeholder="Enter id">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="hidden" class="form-control" id="seekingName" name="seekingName" value="{{$donation->patientProfile->seekingRaisedByDoctorProfile->name}}" placeholder="Enter name">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="hidden" class="form-control" id="seekingHospital" name="seekingHospital" value="{{$donation->patientProfile->seekingRaisedByDoctorProfile->hospital}}" placeholder="Enter hospital">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="hidden" class="form-control" id="seekingChamber" name="seekingChamber" value="{{$donation->patientProfile->seekingRaisedByDoctorProfile->chamber}}" placeholder="Enter chamber">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="hidden" class="form-control" id="seekingDesignation" name="seekingDesignation" value="{{$donation->patientProfile->seekingRaisedByDoctorProfile->Designation}}" placeholder="Enter designation">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="hidden" class="form-control" id="seekingSpeciality" name="seekingSpeciality" value="{{$donation->patientProfile->seekingRaisedByDoctorProfile->Speciality}}" placeholder="Enter speciality">
-                        </div>
+                    <input type="hidden" class="form-control" id="seekingId" name="seekingId" value="{{$donation->patientProfile->seekingRaisedByDoctorProfile->id}}" placeholder="Enter id">
+                    <input type="hidden" class="form-control" id="seekingName" name="seekingName" value="{{$donation->patientProfile->seekingRaisedByDoctorProfile->name}}" placeholder="Enter name">
+                    <input type="hidden" class="form-control" id="seekingHospital" name="seekingHospital" value="{{$donation->patientProfile->seekingRaisedByDoctorProfile->hospital}}" placeholder="Enter hospital">
+                    <input type="hidden" class="form-control" id="seekingChamber" name="seekingChamber" value="{{$donation->patientProfile->seekingRaisedByDoctorProfile->chamber}}" placeholder="Enter chamber">
+                    <input type="hidden" class="form-control" id="seekingDesignation" name="seekingDesignation" value="{{$donation->patientProfile->seekingRaisedByDoctorProfile->Designation}}" placeholder="Enter designation">
+                    <input type="hidden" class="form-control" id="seekingSpeciality" name="seekingSpeciality" value="{{$donation->patientProfile->seekingRaisedByDoctorProfile->Speciality}}" placeholder="Enter speciality">
                 @else
                     <h5 class="text-center pt-3">Seeking Raised By Doctor Profile</h5>
                     <div class="form-row border p-2 box_shadow">
@@ -240,7 +228,7 @@
                 @endif
 
 
-                <button type="submit" class="btn btn-primary mt-3 mb-5">Submit</button>
+                <button type="submit" class="btn btn-primary pull-right mt-3 mb-5">Update Donation</button>
             </form>
         </div>
     </div>

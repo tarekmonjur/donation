@@ -89,6 +89,7 @@
                         <th>App User</th>
                         <th>Individual</th>
                         <th>Amount</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -101,6 +102,13 @@
                             <td>@if($fund->isAppUser) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
                             <td>@if($fund->isIndividual) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
                             <td>{{$fund->donatedAmount}}</td>
+                            <td>
+                                @if($fund->isVerified == false)
+                                <a class="btn btn-success btn-sm" onclick="confirmAction('Verified','Are you sure verify this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/1')}}')" href="#">Verified</a>
+                                @else
+                                <a class="btn btn-danger btn-sm" onclick="confirmAction('Unverified','Are you sure Unverified this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/0')}}')" href="#">Unverified</a>
+                                @endif
+                            </td>
                         </tr>
                     @empty
                         <tr>

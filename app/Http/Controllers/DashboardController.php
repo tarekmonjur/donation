@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use function GuzzleHttp\Psr7\build_query;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -62,12 +60,12 @@ class DashboardController extends Controller
             if(count($logs) > $limit - 1) {
                 unset($logs[$limit -1]);
                 $query['page'] = $page + 1;
-                $data['next_link'] = build_query($query);
+                $data['next_link'] = http_build_query ($query);
             }
 
             if($page > 1){
                 $query['page'] = $page -1;
-                $data['previous_link'] = build_query($query);
+                $data['previous_link'] = http_build_query ($query);
             }
 
             $data['logs'] = $logs;
