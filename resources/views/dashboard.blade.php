@@ -9,21 +9,21 @@
         <div class="col-4 col-sm-3">
             <div class="placeholder bg-info p-3">
                 {{--<i class="fa fa-2x fa-user"></i>--}}
-                <h3>0</h3>
+                <h3>{{$byStatusSummary->isPartial}}</h3>
                 <h6>Partial Donation</h6>
             </div>
         </div>
         <div class="col-4 col-sm-3">
             <div class="placeholder bg-primary p-3">
                 {{--<i class="fa fa-2x fa-user"></i>--}}
-                <h3>0</h3>
+                <h3>{{$byStatusSummary->isVerifiedOnly}}</h3>
                 <h6>Verified Donation</h6>
             </div>
         </div>
         <div class="col-4 col-sm-3">
             <div class="placeholder bg-success p-3">
                 {{--<i class="fa fa-2x fa-user"></i>--}}
-                <h3>0</h3>
+                <h3>{{$byStatusSummary->isActive}}</h3>
                 <h6>Active Donation</h6>
             </div>
         </div>
