@@ -24,6 +24,7 @@
             box-shadow: 0px 0px 3px 0px #e9ecef!important;
         }
     </style>
+    @yield('style')
     <script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
 
 </head>

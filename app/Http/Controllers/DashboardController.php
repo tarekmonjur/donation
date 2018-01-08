@@ -35,7 +35,79 @@ class DashboardController extends Controller
      */
     public function __invoke()
     {
-        return view('dashboard');
+        $reports = $this->httpClient->sendRequest($this->httpClient->apiUrl.'report/dashboard','GET',[]);
+        $data['byStatusSummary'] = $reports->byStatusSummary;
+
+        $byFundCollectionAmountSummary = [
+            [
+                "name" => "Total Target Amount",
+                "y" => $reports->byFundCollectionAmountSummary->totalTargetAmount
+            ],
+            [
+                "name" => "Total Collected Amount",
+                "y" => $reports->byFundCollectionAmountSummary->totalCollectedAmount
+            ],
+            [
+                "name" => "Count",
+                "y" => $reports->byFundCollectionAmountSummary->count
+            ]
+        ];
+        $data['byFundCollectionAmountSummary'] = json_encode($byFundCollectionAmountSummary);
+
+
+        $byContributorTypeFundCollection = [
+            [
+                "name" => "Personal",
+                "y" => $reports->byContributorTypeFundCollection->personal
+            ],
+            [
+                "name" => "Company",
+                "y" => $reports->byContributorTypeFundCollection->company
+            ]
+        ];
+        $data['byContributorTypeFundCollection'] = json_encode($byContributorTypeFundCollection);
+
+
+        $byStatusFundCollection = [
+            [
+                "name" => "verifiedByIndividual",
+                "y" => $reports->byStatusFundCollection->verifiedByIndividual
+            ],
+            [
+                "name" => "unverifiedByIndividual",
+                "y" => $reports->byStatusFundCollection->unverifiedByIndividual
+            ],
+            [
+                "name" => "verifiedByCompany",
+                "y" => $reports->byStatusFundCollection->verifiedByCompany
+            ],
+            [
+                "name" => "unverifiedByCompany",
+                "y" => $reports->byStatusFundCollection->unverifiedByCompany
+            ]
+        ];
+        $data['byStatusFundCollection'] = json_encode($byStatusFundCollection);
+
+        $byMonthFundCollection_year = [];
+        $byMonthFundCollection_amount = [];
+//        $reports->byMonthFundCollection = [
+//            [
+//                "yearMonth"=> "January, 2018",
+//                "amount"=> 5000
+//            ],
+//            [
+//                "yearMonth"=> "December, 2017",
+//                "amount"=> 2000
+//            ]
+//        ];
+        foreach($reports->byMonthFundCollection as $byMonthFundCollection){
+            $byMonthFundCollection_year[] = $byMonthFundCollection->yearMonth;
+            $byMonthFundCollection_amount[] = $byMonthFundCollection->amount;
+        }
+        $data['byMonthFundCollection_year'] = json_encode($byMonthFundCollection_year);
+        $data['byMonthFundCollection_amount'] = json_encode($byMonthFundCollection_amount);
+
+        return view('dashboard')->with($data);
     }
 
     public function logs(Request $request)
