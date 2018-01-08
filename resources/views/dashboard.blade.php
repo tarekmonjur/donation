@@ -95,7 +95,7 @@
                 enabled: false
             },
             title: {
-                text: 'Contributor Type FundCollection'
+                text: 'Contributor Type Fund Collection'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}</b>'
@@ -131,7 +131,7 @@
                 enabled: false
             },
             title: {
-                text: 'Contributor Type FundCollection'
+                text: 'Status Fund Collection'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}</b>'
@@ -152,7 +152,7 @@
             series: [{
                 name: 'Value',
                 colorByPoint: true,
-                data: <?php echo $byContributorTypeFundCollection;?>
+                data: <?php echo $byStatusFundCollection;?>
             }]
         });
 

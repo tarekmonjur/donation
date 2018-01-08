@@ -70,19 +70,19 @@ class DashboardController extends Controller
 
         $byStatusFundCollection = [
             [
-                "name" => "verifiedByIndividual",
+                "name" => "Verified By Individual",
                 "y" => $reports->byStatusFundCollection->verifiedByIndividual
             ],
             [
-                "name" => "unverifiedByIndividual",
+                "name" => "Unverified By Individual",
                 "y" => $reports->byStatusFundCollection->unverifiedByIndividual
             ],
             [
-                "name" => "verifiedByCompany",
+                "name" => "Verified By Company",
                 "y" => $reports->byStatusFundCollection->verifiedByCompany
             ],
             [
-                "name" => "unverifiedByCompany",
+                "name" => "Unverified By Company",
                 "y" => $reports->byStatusFundCollection->unverifiedByCompany
             ]
         ];
