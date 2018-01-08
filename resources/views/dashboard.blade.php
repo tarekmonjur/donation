@@ -5,38 +5,56 @@
     <h3>Dashboard</h3>
     <hr>
 
-    <section class="row text-center placeholders text-white">
+    <section class="row justify-content-center text-center placeholders text-white">
         <div class="col-4 col-sm-3">
             <div class="placeholder bg-info p-3">
                 {{--<i class="fa fa-2x fa-user"></i>--}}
                 <h3>{{$byStatusSummary->isPartial}}</h3>
-                <h6>Partial Donation</h6>
+                <h6>Partial Functions</h6>
             </div>
         </div>
         <div class="col-4 col-sm-3">
             <div class="placeholder bg-primary p-3">
                 {{--<i class="fa fa-2x fa-user"></i>--}}
                 <h3>{{$byStatusSummary->isVerifiedOnly}}</h3>
-                <h6>Verified Donation</h6>
+                <h6>Verified Functions</h6>
             </div>
         </div>
         <div class="col-4 col-sm-3">
             <div class="placeholder bg-success p-3">
                 {{--<i class="fa fa-2x fa-user"></i>--}}
                 <h3>{{$byStatusSummary->isActive}}</h3>
-                <h6>Active Donation</h6>
+                <h6>Active Functions</h6>
             </div>
         </div>
     </section>
 
     <section class="row">
-        <div id="pichart1" class="col-4 border"></div>
-        <div id="pichart2" class="col-4 border"></div>
-        <div id="pichart3" class="col-4 border"></div>
+        @if($chart_one == true)
+        <div id="pichart1" class="col-6 border"></div>
+        @else
+        <div class="col-6 border"><h3>Not Data Available</h3></div>
+        @endif
+
+        @if($chart_two)
+        <div id="pichart2" class="col-6 border"></div>
+        @else
+        <div class="col-6 border"><h3>Not Data Available</h3></div>
+        @endif
+
+        @if($chart_three)
+        <div id="pichart3" class="col-12 border"></div>
+        @else
+        <div class="col-12 border"><h3>Not Data Available</h3></div>
+        @endif
     </section>
     <br>
     <section class="row">
+        @if($chart_four)
         <div id="linechart1" class="col-12"></div>
+        @else
+        <div class="col-12"><h3>Not Data Available</h3></div>
+        @endif
     </section>
 
 @endsection
@@ -61,7 +79,7 @@
                 text: 'Fund Collection Amount Summary'
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}</b>'
+                pointFormat: '{series.name}: <b>{point.y}</b>'
             },
             plotOptions: {
                 pie: {
@@ -69,7 +87,7 @@
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f}',
+                        format: '<b>{point.name}</b>: {point.y}',
                         style: {
                             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                         }
@@ -98,7 +116,7 @@
                 text: 'Contributor Type Fund Collection'
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}</b>'
+                pointFormat: '{series.name}: <b>{point.y}</b>'
             },
             plotOptions: {
                 pie: {
@@ -106,7 +124,7 @@
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f}',
+                        format: '<b>{point.name}</b>: {point.y}',
                         style: {
                             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                         }
@@ -134,7 +152,7 @@
                 text: 'Status Fund Collection'
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}</b>'
+                pointFormat: '{series.name}: <b>{point.y}</b>'
             },
             plotOptions: {
                 pie: {
@@ -142,7 +160,7 @@
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f}',
+                        format: '<b>{point.name}</b>: {point.y}',
                         style: {
                             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                         }

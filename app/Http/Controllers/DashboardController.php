@@ -54,6 +54,12 @@ class DashboardController extends Controller
         ];
         $data['byFundCollectionAmountSummary'] = json_encode($byFundCollectionAmountSummary);
 
+        if(intval($reports->byFundCollectionAmountSummary->count) <= 0){
+            $data['chart_one'] = false;
+        }else{
+            $data['chart_one'] = true;
+        }
+
 
         $byContributorTypeFundCollection = [
             [
@@ -66,6 +72,12 @@ class DashboardController extends Controller
             ]
         ];
         $data['byContributorTypeFundCollection'] = json_encode($byContributorTypeFundCollection);
+
+        if(intval($reports->byContributorTypeFundCollection->personal) <= 0 && intval($reports->byContributorTypeFundCollection->company) <= 0){
+            $data['chart_two'] = false;
+        }else{
+            $data['chart_two'] = true;
+        }
 
 
         $byStatusFundCollection = [
@@ -88,24 +100,27 @@ class DashboardController extends Controller
         ];
         $data['byStatusFundCollection'] = json_encode($byStatusFundCollection);
 
+        if(intval($reports->byStatusFundCollection->verifiedByIndividual) <= 0 && intval($reports->byStatusFundCollection->unverifiedByIndividual) <= 0 && intval($reports->byStatusFundCollection->verifiedByCompany) <= 0 && intval($reports->byStatusFundCollection->unverifiedByCompany) <= 0){
+            $data['chart_three'] = false;
+        }else{
+            $data['chart_three'] = true;
+        }
+
+
         $byMonthFundCollection_year = [];
         $byMonthFundCollection_amount = [];
-//        $reports->byMonthFundCollection = [
-//            [
-//                "yearMonth"=> "January, 2018",
-//                "amount"=> 5000
-//            ],
-//            [
-//                "yearMonth"=> "December, 2017",
-//                "amount"=> 2000
-//            ]
-//        ];
         foreach($reports->byMonthFundCollection as $byMonthFundCollection){
             $byMonthFundCollection_year[] = $byMonthFundCollection->yearMonth;
             $byMonthFundCollection_amount[] = $byMonthFundCollection->amount;
         }
         $data['byMonthFundCollection_year'] = json_encode($byMonthFundCollection_year);
         $data['byMonthFundCollection_amount'] = json_encode($byMonthFundCollection_amount);
+
+        if(count($byMonthFundCollection_year) <= 0){
+            $data['chart_four'] = false;
+        }else{
+            $data['chart_four'] = true;
+        }
 
         return view('dashboard')->with($data);
     }

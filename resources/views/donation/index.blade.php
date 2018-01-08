@@ -42,12 +42,18 @@
                 <th>Target Date</th>
                 <th>Collected Amount</th>
                 <th>Active Program</th>
+                <th>Fund Summary</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody style="font-size: 14px">
             @foreach($donations as $donation)
+                <?php
+                $fund_collect = collect($donation->funds);
+                $fund_isVerified = $fund_collect->where('isVerified',1)->count();
+                $fund_NotVerified = $fund_collect->where('isVerified',0)->count()
+                ?>
             <tr>
                 <td>{{$loop->iteration}}</td>
                 <td><a href="{{url('donations/'.$donation->{'_id'})}}">{{$donation->title}}</a></td>
@@ -56,6 +62,10 @@
                 <td>{{date("d M Y",strtotime($donation->targetDate))}}</td>
                 <td>{{$donation->collectedAmount}}</td>
                 <td>@if(isset($donation->isVerified) && $donation->activeProgram) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
+                <td>
+                    <span class="badge badge-success">{{$fund_isVerified}}</span>
+                    <span class="badge badge-danger">{{$fund_NotVerified}}</span>
+                </td>
                 <td>
                     @if(isset($donation->isVerified) && $donation->isVerified == true)
                         <span class="badge badge-success">Verified</span>
