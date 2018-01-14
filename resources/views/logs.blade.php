@@ -1,5 +1,6 @@
 @extends('layouts.layout')
 @section('content')
+	<?php date_default_timezone_set('Asia/Dhaka'); ?>
     <link rel="stylesheet" type="text/css" href="{{asset('css/beautify-json.css')}}">
 
     <h3>System Logs</h3>
@@ -41,16 +42,17 @@
                 <th>URL</th>
                 <th>Method</th>
                 <th>Message</th>
+                <th>Res Time (ms)</th>
                 <th style="width: 100px!important;">Time</th>
             </tr>
             </thead>
             <tbody style="font-size: 14px">
             @foreach($logs as $log)
                 <tr @if(isset($log->error) && $log->error->isError == true) class="bg-danger" @endif>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$log->hostname}}</td>
-                    <td>{{$log->pid}}</td>
-                    <td>{{$log->remoteAddress}}</td>
+                    <td>{{$loop->iteration}} -- {{$log->_id}}</td>
+                    <td>{{isset($log->hostname) ? $log->hostname : ''}}</td>
+                    <td>{{isset($log->pid) ? $log->pid : ''}}</td>
+                    <td>{{isset($log->remoteAddress) ? $log->remoteAddress : ''}}</td>
                     <td>{{$log->req->httpVersion}}</td>
                     <td>
                         <div class="btn-group">
@@ -63,6 +65,7 @@
                     <td>{{$log->req->url}}</td>
                     <td>{{$log->req->method}}</td>
                     <td>{{$log->msg}}</td>
+		    <td>{{$log->latency}}</td>
                     <td>{{date("d M Y h:i:s",strtotime($log->time))}}</td>
                 </tr>
             @endforeach
@@ -78,6 +81,7 @@
                     <th>URL</th>
                     <th>Method</th>
                     <th>Message</th>
+		    <th>Res Time (ms)</th>
                     <th style="width: 100px!important;">Time</th>
                 </tr>
             </tfoot>
