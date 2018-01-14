@@ -69,14 +69,17 @@
             </table>
         </div>
         <div class="col-md-8">
-
             <h4>Documents</h4>
             <div class="row border" id="docs" style="margin: 0px">
                 @foreach($donation->docs as $doc)
                     <script> callDocs('{{$doc->_id}}'); </script>
                 @endforeach
             </div>
-            <br>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
             <div class="table-responsive">
                 <h4>Donation Fund</h4>
                 <table class="table table-sm table-bordered">
@@ -104,9 +107,9 @@
                             <td>{{$fund->donatedAmount}}</td>
                             <td>
                                 @if($fund->isVerified == false)
-                                <a class="btn btn-success btn-sm" onclick="confirmAction('Verified','Are you sure verify this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/1')}}')" href="#">Verified</a>
+                                    <a class="btn btn-success btn-sm" onclick="confirmAction('Verified','Are you sure verify this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/1')}}')" href="#">Verified</a>
                                 @else
-                                <a class="btn btn-danger btn-sm" onclick="confirmAction('Unverified','Are you sure Unverified this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/0')}}')" href="#">Unverified</a>
+                                    <a class="btn btn-danger btn-sm" onclick="confirmAction('Unverified','Are you sure Unverified this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/0')}}')" href="#">Unverified</a>
                                 @endif
                             </td>
                         </tr>
@@ -115,10 +118,11 @@
                             <td colspan="7">No data available</td>
                         </tr>
                     @endforelse
-                        <tr>
-                            <td colspan="6" class="text-right">Total Amount :</td>
-                            <td>{{$donation->collectedAmount}}</td>
-                        </tr>
+                    <tr>
+                        <td colspan="6" class="text-right"><strong>Total Amount :</strong></td>
+                        <td><strong>{{$donation->collectedAmount}}</strong></td>
+                        <td></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -127,7 +131,7 @@
 
     @if(isset($donation->patientProfile))
     <div class="row">
-        <div class="col-md-4 table-responsive">
+        <div class="col-md-6 table-responsive">
             <h4>Patient Profile</h4>
             <table class="table table-sm table-bordered">
                 <tbody>
@@ -162,74 +166,44 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-8 table-responsive">
-            <h4>Doctors Supporting</h4>
-            <table class="table table-sm table-bordered">
-                <thead class="thead-dark">
-                <tr>
-                    <th>Doctor Name</th>
-                    <th>Designation</th>
-                    <th>Speciality</th>
-                    <th>Hospital</th>
-                    <th>Chamber</th>
-                </tr>
-                </thead>
-                <tbody>
-                @forelse($donation->patientProfile->doctorsSupporting as $support)
+        @if(isset($donation->patientProfile->seekingRaisedByDoctorProfile))
+            <div class="col-md-6 table-responsive">
+                <h4>Seeking Raised By Doctor</h4>
+                <table class="table table-sm table-bordered">
+                    <tbody>
                     <tr>
-                        <td>{{$support->name}}</td>
-                        <td>{{$support->Designation}}</td>
-                        <td>{{$support->Speciality}}</td>
-                        <td>{{$support->hospital}}</td>
-                        <td>{{$support->chamber}}</td>
+                        <td>ID</td>
+                        <td>{{$donation->patientProfile->seekingRaisedByDoctorProfile->id}}</td>
                     </tr>
-                @empty
                     <tr>
-                        <td colspan="5"></td>
+                        <td>Name</td>
+                        <td>{{$donation->patientProfile->seekingRaisedByDoctorProfile->name}}</td>
                     </tr>
-                @endforelse
-                </tbody>
-            </table>
-        </div>
+                    <tr>
+                        <td>Hospital</td>
+                        <td>{{$donation->patientProfile->seekingRaisedByDoctorProfile->hospital}}</td>
+                    </tr>
+                    <tr>
+                        <td>Chamber</td>
+                        <td>{{$donation->patientProfile->seekingRaisedByDoctorProfile->chamber}}</td>
+                    </tr>
+                    <tr>
+                        <td>Designation</td>
+                        <td>{{$donation->patientProfile->seekingRaisedByDoctorProfile->Designation}}</td>
+                    </tr>
+                    <tr>
+                        <td>Speciality</td>
+                        <td>{{$donation->patientProfile->seekingRaisedByDoctorProfile->Speciality}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        @endif
     </div>
 
     <div class="row">
-        @if(isset($donation->patientProfile->seekingRaisedByDoctorProfile))
-        <div class="col-md-4 table-responsive">
-            <h4>Seeking Raised By Doctor</h4>
-            <table class="table table-sm table-bordered">
-                <tbody>
-                <tr>
-                    <td>ID</td>
-                    <td>{{$donation->patientProfile->seekingRaisedByDoctorProfile->id}}</td>
-                </tr>
-                <tr>
-                    <td>Name</td>
-                    <td>{{$donation->patientProfile->seekingRaisedByDoctorProfile->name}}</td>
-                </tr>
-                <tr>
-                    <td>Hospital</td>
-                    <td>{{$donation->patientProfile->seekingRaisedByDoctorProfile->hospital}}</td>
-                </tr>
-                <tr>
-                    <td>Chamber</td>
-                    <td>{{$donation->patientProfile->seekingRaisedByDoctorProfile->chamber}}</td>
-                </tr>
-                <tr>
-                    <td>Designation</td>
-                    <td>{{$donation->patientProfile->seekingRaisedByDoctorProfile->Designation}}</td>
-                </tr>
-                <tr>
-                    <td>Speciality</td>
-                    <td>{{$donation->patientProfile->seekingRaisedByDoctorProfile->Speciality}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        @endif
-
         @if(isset($donation->patientProfile->currentDoctorProfile))
-            <div class="col-md-4 table-responsive">
+            <div class="col-md-6 table-responsive">
                 <h4>Current Doctor Profile</h4>
                 <table class="table table-sm table-bordered">
                     <tbody>
@@ -263,7 +237,7 @@
         @endif
 
         @if(isset($donation->patientProfile->paymentInfo))
-            <div class="col-md-4 table-responsive">
+            <div class="col-md-6 table-responsive">
                 <h4>Payment Info</h4>
                 <table class="table table-sm table-bordered">
                     <tbody>
@@ -288,6 +262,39 @@
             </div>
         @endif
     </div>
+
+    <div class="row">
+        <div class="col-md-12 table-responsive">
+            <h4>Doctors Supporting</h4>
+            <table class="table table-sm table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Doctor Name</th>
+                    <th>Designation</th>
+                    <th>Speciality</th>
+                    <th>Hospital</th>
+                    <th>Chamber</th>
+                </tr>
+                </thead>
+                <tbody>
+                @forelse($donation->patientProfile->doctorsSupporting as $support)
+                    <tr>
+                        <td>{{$support->name}}</td>
+                        <td>{{$support->Designation}}</td>
+                        <td>{{$support->Speciality}}</td>
+                        <td>{{$support->hospital}}</td>
+                        <td>{{$support->chamber}}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5"></td>
+                    </tr>
+                @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     @endif
 
     <!-- Modal -->
