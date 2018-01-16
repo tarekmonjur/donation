@@ -25,6 +25,10 @@ class DashboardController extends Controller
      */
     public function __construct(DonationApiController $httpClient){
         $this->middleware('auth');
+        $this->middleware(function($request, $next){
+            $this->auth = session()->get('auth');
+            return $next($request);
+        });
         $this->httpClient = $httpClient;
     }
 
@@ -124,8 +128,13 @@ class DashboardController extends Controller
         return view('dashboard')->with($data);
     }
 
+
     public function logs(Request $request)
     {
+        if($this->auth->user_type != 'admin'){
+            return redirect()->back();
+        }
+
         $data['logs'] = [];
         $query['from'] = $startDate = ($request->from)?date("Y-m-d", strtotime($request->from)):date("Y-m-d");
         $query['to'] = $endDate = ($request->to)?date("Y-m-d", strtotime($request->to)):date("Y-m-d");
