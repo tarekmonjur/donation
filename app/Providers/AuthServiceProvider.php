@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('*', function ($view) {
-            $view->with('auth', Auth::user());
+            $view->with('auth', session()->get('auth'));
         });
 
         $this->registerPolicies();

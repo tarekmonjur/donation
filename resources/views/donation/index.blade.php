@@ -2,10 +2,11 @@
 @section('content')
 
     <h2>Donations</h2>
+    @if($auth->user_type != "company")
     <form action="" method="get" class="form-inline" style="position: absolute;left: 20%;top: 50px; z-index:999">
         <div class="form-group">
             <label><strong>Partial : </strong></label>
-            <select class="form-control col-form-label-sm mx-sm-2" name="isPartial">
+            <select class="form-control form-control-sm col-form-label-sm mx-sm-2" name="isPartial">
                 <option value="1" @if($isPartial == true) selected @endif>Yes</option>
                 <option value="0" @if($isPartial == false) selected @endif>No</option>
             </select>
@@ -13,7 +14,7 @@
 
         <div class="form-group">
             <label><strong>Verified : </strong></label>
-            <select class="form-control col-form-label-sm mx-sm-2" name="isVerified">
+            <select class="form-control form-control-sm col-form-label-sm mx-sm-2" name="isVerified">
                 <option value="1" @if($isVerified == true) selected @endif>Yes</option>
                 <option value="0" @if($isVerified == false) selected @endif>No</option>
             </select>
@@ -21,16 +22,16 @@
 
         <div class="form-group">
             <label><strong>Active : </strong></label>
-            <select class="form-control col-form-label-sm mx-sm-2" name="isActive">
+            <select class="form-control form-control-sm col-form-label-sm mx-sm-2" name="isActive">
                 <option value="1" @if($isActive == true) selected @endif>Yes</option>
                 <option value="0" @if($isActive == false) selected @endif>No</option>
             </select>
         </div>
         <div class="form-group">
-            <button type="submit" name="search" class="btn btn-primary btn-sm">Submit</button>
+            <button type="submit" name="search" class="btn btn-primary btn-sm form-control-sm">Submit</button>
         </div>
     </form>
-
+    @endif
     <div class="table-responsive">
         <table id="datatable1" class="table table-sm table-hover">
             <thead>
@@ -44,7 +45,9 @@
                 <th>Active Program</th>
                 <th>Fund Summary</th>
                 <th>Status</th>
+                @if($auth->user_type != "company")
                 <th>Action</th>
+                @endif
             </tr>
             </thead>
             <tbody style="font-size: 14px">
@@ -73,6 +76,7 @@
                         <span class="badge badge-danger">Unverified</span>
                     @endif
                 </td>
+                @if($auth->user_type != "company")
                 <td>
                     <div class="btn-group">
                         @if(isset($donation->isPartial) && $donation->isPartial == false)
@@ -82,10 +86,10 @@
                                 <a class="btn btn-sm btn-success" href="#" onclick="return confirmAction('verify','Are you sure verify this?','{{url('/donations/verify/'.$donation->{'_id'}.'/1')}}')">Verify</a>
                             @endif
                         @endif
-
                         <a class="btn btn-sm btn-primary" href="{{url('/donations/edit/'.$donation->{'_id'})}}">Edit</a>
                     </div>
                 </td>
+                @endif
             </tr>
             @endforeach
             </tbody>

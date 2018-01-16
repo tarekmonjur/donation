@@ -21,11 +21,10 @@ class DashboardController extends Controller
 
     /**
      * DashboardController constructor.
-     * @param CommonController $httpClient
+     * @param DonationApiController $httpClient
      */
-    public function __construct(CommonController $httpClient){
+    public function __construct(DonationApiController $httpClient){
         $this->middleware('auth');
-        $this->middleware('permission')->except('__invoke');
         $this->httpClient = $httpClient;
     }
 

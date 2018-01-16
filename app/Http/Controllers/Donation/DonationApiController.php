@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
-class CommonController extends Controller
+class DonationApiController extends Controller
 {
     protected  $client;
 
@@ -16,10 +16,10 @@ class CommonController extends Controller
     {
         $this->client = new Client(['cookies' => true, 'verify' => false]);
 
-        if(env('API_MODE') == 0) {
+        if(env('DONATION_API_MODE') == 0) {
             $this->apiUrl = "https://103.23.41.189:3000/api/admin/v1/";
         }
-        elseif(env('API_MODE') == 1)
+        elseif(env('DONATION_API_MODE') == 1)
         {
             $this->apiUrl = "https://103.23.41.189:3000/api/admin/v1/";
         }
@@ -36,8 +36,8 @@ class CommonController extends Controller
                 'User-Agent' => 'testing/1.0',
                 'Accept'     => 'application/json',
                 'Content-Type' => 'application/json',
-                'x-auth-token'  => 'YAlx',
-                'x-auth-user-id' => 'userId'
+//                'x-auth-token'  => 'YAlx',
+//                'x-auth-user-id' => 'userId'
             ]
         ]);
 
@@ -58,8 +58,8 @@ class CommonController extends Controller
                 'User-Agent' => 'testing/1.0',
                 'Accept'     => 'application/json',
                 'Content-Type' => 'application/json',
-                'x-auth-token'  => 'YAlx',
-                'x-auth-user-id' => 'userId'
+//                'x-auth-token'  => 'YAlx',
+//                'x-auth-user-id' => 'userId'
             ]
         ]);
 
@@ -77,8 +77,8 @@ class CommonController extends Controller
             'allow_redirects' => false,
             'headers' => [
                 'x-accept-content-type' => $content_type,
-                'x-auth-token'  => 'YAlx',
-                'x-auth-user-id' => 'userId'
+//                'x-auth-token'  => 'YAlx',
+//                'x-auth-user-id' => 'userId'
             ],
             'multipart' => $donationDocs
         ]);
@@ -96,8 +96,8 @@ class CommonController extends Controller
             'allow_redirects' => false,
             'headers' => [
                 'x-accept-content-type' => $content_type,
-                'x-auth-token'  => 'YAlx',
-                'x-auth-user-id' => '01759239067'
+//                'x-auth-token'  => 'YAlx',
+//                'x-auth-user-id' => '01759239067'
             ]
         ]);
 

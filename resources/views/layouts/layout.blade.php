@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+    <link rel="icon" href="{{asset('images/logo.png')}}">
     <title>{{ config('app.name', 'AFC DONATION') }}</title>
 
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">

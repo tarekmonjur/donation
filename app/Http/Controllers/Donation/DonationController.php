@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Donation;
 
-use App\Http\Controllers\CommonController;
+use App\Http\Controllers\DonationApiController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -21,15 +21,25 @@ class DonationController extends Controller
 
     protected $httpClient;
 
+    protected $auth;
+
     /**
      * DashboardController constructor.
-     * @param CommonController $httpClient
+     * @param DonationApiController $httpClient
      */
-    public function __construct(CommonController $httpClient){
+    public function __construct(DonationApiController $httpClient)
+    {
         $this->middleware('auth');
-        $this->middleware('permission');
+
         $this->httpClient = $httpClient;
+
+        $this->middleware(function($request, $next){
+            $this->auth = session()->get('auth');
+            return $next($request);
+        });
     }
+
+
 
     public function index(Request $request)
     {
@@ -44,13 +54,25 @@ class DonationController extends Controller
                 'isVerified' => $isVerified,
                 'activeProgram' => $isActive,
             ];
-            $donations = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'donation/all','POST', $searchData);
+            $donations = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'program/all','POST', $searchData);
         }else{
-            $data['isPartial'] = true;
-            $data['isVerified'] = true;
-            $data['isActive'] = true;
-            
-            $donations = $this->httpClient->sendRequest($this->httpClient->apiUrl.'donation/all','POST',[]);
+            if($this->auth->user_type == "company"){
+                $data['isPartial'] = false;
+                $data['isVerified'] = true;
+                $data['isActive'] = true;
+                $searchData = [
+                    'isPartial' => false,
+                    'isVerified' => true,
+                    'activeProgram' => true,
+                ];
+                $donations = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'program/all','POST', $searchData);
+            }else{
+                $data['isPartial'] = true;
+                $data['isVerified'] = true;
+                $data['isActive'] = true;
+                $donations = $this->httpClient->sendRequest($this->httpClient->apiUrl.'program/all','POST', []);
+            }
+
         }
         
         if($donations->success == true) {
@@ -68,6 +90,10 @@ class DonationController extends Controller
 
     public function verifyDonation(Request $request)
     {
+        if($this->auth->user_type == "company"){
+            return redirect()->back();
+        }
+
         $donation = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'donation/verify','POST', [
             "donationProgramId" => $request->id,
             "verificationStatus" => ($request->status == 1 || $request->status == '1')?true:false
@@ -80,8 +106,13 @@ class DonationController extends Controller
         return redirect()->back();
     }
 
+
     public function verifyFund(Request $request)
     {
+        if($this->auth->user_type == "company"){
+            return redirect()->back();
+        }
+
         $donation = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'donation/fund/verify','POST', [
             "donationProgramId" => $request->donation_id,
             "fundId" => $request->fund_id,
@@ -99,7 +130,7 @@ class DonationController extends Controller
     public function show($id)
     {
 
-        $donation = $this->httpClient->sendRequest($this->httpClient->apiUrl.'donation/'.$id,'GET', []);
+        $donation = $this->httpClient->sendRequest($this->httpClient->apiUrl.'program/'.$id,'GET', []);
         if($donation->success == true && $donation->data->donatePrograms) {
             $data['donation'] = $donation->data->donatePrograms;
         }else{
@@ -111,7 +142,7 @@ class DonationController extends Controller
 
     public function getMedicalRecordDoc($id)
     {
-        $doc = $this->httpClient->sendMedicalDocRetriveRequest($this->httpClient->apiUrl.'donation/medical-records/view/'.$id.'/1','GET');
+        $doc = $this->httpClient->sendMedicalDocRetriveRequest($this->httpClient->apiUrl.'program/medical-records/view/'.$id.'/1','GET');
         $result = '<div class="col-md-2 pt-1 pb-1"><a href="#" class="docView">';
         $result .= '<img src="data:image/jpg;base64,'.base64_encode($doc).'" class="img-thumbnail">';
         $result .= '</a></div>';
@@ -121,7 +152,11 @@ class DonationController extends Controller
 
     public function edit($id)
     {
-        $donation = $this->httpClient->sendRequest($this->httpClient->apiUrl.'donation/'.$id,'GET', []);
+        if($this->auth->user_type == "company"){
+            return redirect()->back();
+        }
+
+        $donation = $this->httpClient->sendRequest($this->httpClient->apiUrl.'program/'.$id,'GET', []);
         if($donation->success == true && $donation->data->donatePrograms) {
             $data['donation'] = $donation->data->donatePrograms;
         }else{
@@ -133,6 +168,10 @@ class DonationController extends Controller
 
     public function update(Request $request)
     {
+        if($this->auth->user_type == "company"){
+            return redirect()->back();
+        }
+
         $donationUpdate = [
             "donationProgramId" => $request->id,
             "title" => $request->title,
@@ -205,7 +244,7 @@ class DonationController extends Controller
             $donationDocs[]=["name" => "donationProgramId",  "contents"=> $request->id];
             //dd($donationDocs);
             
-            $res = $this->httpClient->sendRequestDoc($this->httpClient->apiUrl . 'donation/medical-records/add', 'POST', $donationDocs, "multipart/form-data");
+            $res = $this->httpClient->sendRequestDoc($this->httpClient->apiUrl . 'program/medical-records/add', 'POST', $donationDocs, "multipart/form-data");
             if ($res->success == true) {
                 $request->session()->flash('msg_success', $res->msg);
             } else {
