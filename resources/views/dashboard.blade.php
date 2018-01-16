@@ -5,29 +5,33 @@
     <h3>Dashboard</h3>
     <hr>
 
+    @if($auth->user_type == 'admin')
     <section class="row justify-content-center text-center placeholders text-white">
         <div class="col-4 col-sm-3">
             <div class="placeholder bg-info p-3">
                 {{--<i class="fa fa-2x fa-user"></i>--}}
+                <a href="{{url('donations?isPartial=1&isVerified=0&isActive=0&search=')}}" class="text-white">
                 <h3>{{$byStatusSummary->isPartial}}</h3>
-                <h6>Partial Functions</h6>
+                <h6>Partial Programs</h6>
+                </a>
             </div>
         </div>
         <div class="col-4 col-sm-3">
             <div class="placeholder bg-primary p-3">
                 {{--<i class="fa fa-2x fa-user"></i>--}}
                 <h3>{{$byStatusSummary->isVerifiedOnly}}</h3>
-                <h6>Verified Functions</h6>
+                <h6>Verified Programs</h6>
             </div>
         </div>
         <div class="col-4 col-sm-3">
             <div class="placeholder bg-success p-3">
                 {{--<i class="fa fa-2x fa-user"></i>--}}
                 <h3>{{$byStatusSummary->isActive}}</h3>
-                <h6>Active Functions</h6>
+                <h6>Active Programs</h6>
             </div>
         </div>
     </section>
+    @endif
 
     <section class="row">
         @if($chart_one == true)
@@ -42,13 +46,16 @@
         <div class="col-6 border"><h3>Not Data Available</h3></div>
         @endif
 
-        @if($chart_three)
-        <div id="pichart3" class="col-12 border"></div>
-        @else
-        <div class="col-12 border"><h3>Not Data Available</h3></div>
+        @if($auth->user_type == 'admin')
+            @if($chart_three)
+            <div id="pichart3" class="col-12 border"></div>
+            @else
+            <div class="col-12 border"><h3>Not Data Available</h3></div>
+            @endif
         @endif
     </section>
     <br>
+    @if($auth->user_type == 'admin')
     <section class="row">
         @if($chart_four)
         <div id="linechart1" class="col-12"></div>
@@ -56,6 +63,7 @@
         <div class="col-12"><h3>Not Data Available</h3></div>
         @endif
     </section>
+    @endif
 
 @endsection
 
