@@ -15,14 +15,6 @@ Route::get('/','DashboardController');
 
 
 ///*
-//* Users Login-Logout Routes
-//*/
-//Route::get('login','Auth\LoginController@showLogin')->name('login');
-//Route::post('login','Auth\LoginController@login');
-//Route::get('logout','Auth\LoginController@logout');
-//
-//
-///*
 // * Forgot & Reset Password Route
 // */
 //Route::group(['prefix' => 'password'],function(){
@@ -41,22 +33,24 @@ Route::group(['middleware' => 'guest'],function(){
 
 
 
+//Donation Route
+Route::group(['prefix'=>'donations', 'namespace' => 'Donation'],function(){
+    Route::get('/','DonationController@index');
+    Route::get('/verify/{id}/{status}','DonationController@verifyDonation');
+    Route::get('/add','DonationController@create');
+    Route::get('/{id}','DonationController@show');
+    Route::get('/fund-verify/{donation_id}/{fund_id}/{status}','DonationController@verifyFund');
+    Route::get('/medical-records-doc/{id}','DonationController@getMedicalRecordDoc');
 
-Route::group(['prefix'=>'donations'],function(){
-    Route::get('/','Donation\DonationController@index');
-    Route::get('/verify/{id}/{status}','Donation\DonationController@verifyDonation');
-    Route::get('/add','Donation\DonationController@create');
-    Route::get('/{id}','Donation\DonationController@show');
-    Route::get('/fund-verify/{donation_id}/{fund_id}/{status}','Donation\DonationController@verifyFund');
-    Route::get('/medical-records-doc/{id}','Donation\DonationController@getMedicalRecordDoc');
-
-    Route::get('/edit/{id}','Donation\DonationController@edit');
-    Route::post('/edit','Donation\DonationController@update');
+    Route::get('/edit/{id}','DonationController@edit');
+    Route::post('/edit','DonationController@update');
 });
 
 Route::get('/logs','DashboardController@logs');
 
 
+
+//AFCSM Rouete
 Route::group(['namespace'=>'Afcsm','middleware' => 'auth'],function(){
     Route::get('/logout', 'AuthController@logout');
     Route::get('/mr-list', 'SmController@index');
@@ -67,6 +61,12 @@ Route::group(['namespace'=>'Afcsm','middleware' => 'auth'],function(){
     Route::get('/mr-doctor-visit-history/{mr_mobile_no}/{doctor_mobile_no}/{api_token}', 'SmController@mrDoctorVisitHistory');
     Route::get('/mr-doctor-visit-history-search', 'SmController@mrDoctorVisitHistorySearch');
     Route::get('/mr-coupons-details/{mr_mobile_no}/{api_token}', 'SmController@mrCouponsDetails');
+});
+
+
+//Doctor Route
+Route::group(['prefix'=>'doctors-program', 'namespace' => 'Doctor'],function(){
+    Route::get('/','DoctorController@index');
 });
 
 

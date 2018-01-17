@@ -15,6 +15,9 @@
 
         @if($auth->user_type == "admin")
         <li class="nav-item">
+            <a class="nav-link @if($menu == 'doctors-program') active @endif" href="{{url('/doctors-program')}}">Doctor Program</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link @if($menu == 'logs') active @endif" href="{{url('/logs')}}">Logs</a>
         </li>
         @endif
