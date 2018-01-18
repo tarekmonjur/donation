@@ -48,15 +48,15 @@ class DoctorApiController extends Controller
     }
 
 
-    public function sendRequestJson($url, $method = 'GET', $query=[])
+    public function sendRequestJson($url, $method = 'GET', $query=[], $contentType = "application/json")
     {
         $result = $this->client->request($method, $url, [
             'json' => $query,
             'allow_redirects' => false,
             'headers' => [
                 'User-Agent' => 'testing/1.0',
-                'Accept'     => 'application/json',
-                'Content-Type' => 'application/json',
+                'Accept'     => $contentType,
+                'Content-Type' => $contentType,
             ]
         ]);
 

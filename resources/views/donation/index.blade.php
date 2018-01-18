@@ -33,9 +33,9 @@
     </form>
     @endif
     <div class="table-responsive">
-        <table id="datatable1" class="table table-sm table-hover">
+        <table id="datatable1" class="table table-hover">
             <thead>
-            <tr style="font-size: 12px">
+            <tr style="font-size: 12px" class="bg-light">
                 <th>#</th>
                 <th>Title</th>
                 <th>Disease Stage</th>

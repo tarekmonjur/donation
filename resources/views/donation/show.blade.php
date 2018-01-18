@@ -100,6 +100,18 @@
                         @endif
                     </td>
                 </tr>
+                <tr>
+                    <td>Action</td>
+                    <td>
+                        @if(isset($donation->isPartial) && $donation->isPartial == false)
+                            @if(isset($donation->isVerified) && $donation->isVerified == true)
+                                <a class="btn btn-sm btn-danger" href="#" onclick="return confirmAction('Unverified','Are you sure unverified this?','{{url('/donations/verify/'.$donation->{'_id'}.'/0')}}')">Unverified</a>
+                            @else
+                                <a class="btn btn-sm btn-success" href="#" onclick="return confirmAction('verify','Are you sure verify this?','{{url('/donations/verify/'.$donation->{'_id'}.'/1')}}')">Verify</a>
+                            @endif
+                        @endif
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

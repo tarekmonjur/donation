@@ -1,12 +1,14 @@
 @extends('layouts.layout')
 @section('content')
 
-    <h2>Doctors Program</h2>
+    <h3>Doctors Program
+    {{--<small><a href="#" class="pull-right btn btn-sm btn-primary">Create Program</a></small>--}}
+    </h3>
 
     <div class="table-responsive">
-        <table id="datatable1" class="table table-sm table-hover">
+        <table id="datatable1" class="table table-hover">
             <thead>
-            <tr style="font-size: 12px">
+            <tr style="font-size: 12px" class="bg-light">
                 <th>#</th>
                 <th>Doctor Id</th>
                 <th>Name</th>
@@ -25,7 +27,7 @@
             @foreach($doctors as $doctor)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$doctor->doctorId}}</td>
+                    <td><a href="{{url('doctors-program/'.$doctor->id)}}">{{$doctor->doctorId}}</a></td>
                     <td>{{$doctor->name}}</td>
                     <td>{{$doctor->hospital}}</td>
                     <td>{{$doctor->chamber}}</td>
@@ -35,27 +37,20 @@
                     <td>{{$doctor->within}}</td>
                     <td>{{$doctor->amount}}</td>
                     <td>
-                        @if(isset($doctor->isRemoved) && $doctor->isRemoved === true)
-                            <span class="badge badge-success">Removed</span>
+                        @if(isset($doctor->verifiedProgram) && $doctor->verifiedProgram === true)
+                            <span class="badge badge-success">Verified</span>
                         @else
-                            <span class="badge badge-danger">Not Removed</span>
-                        @endif
-                        <br>
-
-                        @if(isset($doctor->isRequestAccepted) && $doctor->isRequestAccepted === true)
-                            <span class="badge badge-success">Accepted</span>
-                        @else
-                            <span class="badge badge-danger">Unaccepted</span>
-                        @endif
-                        <br>
-                        @if(isset($doctor->isApproved) && $doctor->isApproved === true)
-                            <span class="badge badge-success">Approved</span>
-                        @else
-                            <span class="badge badge-danger">Unapproved</span>
+                            <span class="badge badge-danger">Unverified</span>
                         @endif
                     </td>
                     <td>
-
+                        <div class="btn-group">
+                            @if(isset($doctor->verifiedProgram) && $doctor->verifiedProgram === true)
+                                {{--<a class="btn btn-xs btn-success" href="#" onclick="return confirmAction('Unremoved','Are you sure unremoved this?','{{url('/doctors-program/verified/'.$doctor->id)}}')"></a>--}}
+                            @else
+                                <a class="btn btn-xs btn-success" href="#" onclick="return confirmAction('Removed','Are you sure removed this?','{{url('/doctors-program/verified/'.$doctor->id)}}')">Verified</a>
+                            @endif
+                        </div>
                     </td>
                 </tr>
             @endforeach

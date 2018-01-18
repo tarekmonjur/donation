@@ -67,6 +67,13 @@ Route::group(['namespace'=>'Afcsm','middleware' => 'auth'],function(){
 //Doctor Route
 Route::group(['prefix'=>'doctors-program', 'namespace' => 'Doctor'],function(){
     Route::get('/','DoctorController@index');
+    Route::get('/{doctorSupportSeekingId}','DoctorController@show');
+    Route::get('/verified/{doctorSupportSeekingId}','DoctorController@verified');
+
+//    Route::get('/my-raised/{doctorId}','DoctorController@myRaised');
+//    Route::get('/pharma-approval/{doctorSupportSeekingId}/{pharmaName}','DoctorController@pharmaApproval');
+//    Route::get('/accept-by-doctor/{doctorSupportSeekingId}/{doctorId}/{status?}','DoctorController@acceptByDoctor');
+//    Route::get('/remove-by-doctor/{doctorSupportSeekingId}/{doctorId}/{status?}','DoctorController@removeByDoctor');
 });
 
 

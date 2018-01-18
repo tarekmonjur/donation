@@ -13,10 +13,13 @@
         </li>
         @endif
 
-        @if($auth->user_type == "admin")
+        @if($auth->user_type == "admin" || $auth->user_type == "company")
         <li class="nav-item">
             <a class="nav-link @if($menu == 'doctors-program') active @endif" href="{{url('/doctors-program')}}">Doctor Program</a>
         </li>
+        @endif
+
+        @if($auth->user_type == "admin")
         <li class="nav-item">
             <a class="nav-link @if($menu == 'logs') active @endif" href="{{url('/logs')}}">Logs</a>
         </li>

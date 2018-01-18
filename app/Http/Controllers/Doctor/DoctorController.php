@@ -26,6 +26,10 @@ class DoctorController extends Controller
 
     public function index(Request $request)
     {
+        if(!$this->auth->user_type == "admin" || !$this->auth->user_type == "company"){
+            return redirect()->back();
+        }
+
         $data['doctors'] = [];
         $doctors = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'doctors-program/all','POST', []);
 
@@ -34,5 +38,99 @@ class DoctorController extends Controller
         }
         return view('doctor.index')->with($data);
     }
+
+
+    public function show(Request $request)
+    {
+        $data['doctor'] = [];
+        $doctors = $this->httpClient->sendRequest($this->httpClient->apiUrl.'doctors-program/'.$request->doctorSupportSeekingId,'GET', []);
+
+        if($doctors->success == true) {
+            $data['doctor'] = ($doctors->data)?:[];
+        }
+
+        return view('doctor.show')->with($data);
+    }
+
+
+    public function verified(Request $request)
+    {
+        $param = [
+            'doctorSupportSeekingId' =>  $request->doctorSupportSeekingId
+        ];
+        $result = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'doctors-program/verified-by-admin','POST', $param);
+
+        if($result->success === true){
+            $request->session()->flash('msg_success', $result->msg);
+        }else{
+            $request->session()->flash('msg_error', $result->msg);
+        }
+        return redirect()->back();
+    }
+
+
+//    public function myRaised(Request $request)
+//    {
+//        $data['doctors'] = [];
+//        $doctors = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'doctors-program/my-raised/'.$request->doctorId,'POST', '{}');
+//
+//        if($doctors->success == true) {
+//            $data['doctors'] = ($doctors->data)?:[];
+//        }
+//        return view('doctor.show')->with($data);
+//    }
+//
+//
+//    public function pharmaApproval(Request $request)
+//    {
+//
+//        $param = [
+//            'doctorSupportSeekingId' =>  $request->doctorSupportSeekingId,
+//            'supportedBy' => ['pharmaName' => $request->pharmaName]
+//        ];
+//        $result = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'doctors-program/pharma-approval','POST', $param);
+//
+//        if($result->success === true){
+//            $request->session()->flash('msg_success', $result->msg);
+//        }else{
+//            $request->session()->flash('msg_error', $result->msg);
+//        }
+//        return redirect()->back();
+//    }
+//
+//
+//    public function acceptByDoctor(Request $request)
+//    {
+//        $param = [
+//            'doctorSupportSeekingId' =>  $request->doctorSupportSeekingId,
+//            'doctorId' => $request->doctorId
+//        ];
+//        $result = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'doctors-program/accept-by-doctor','POST', $param);
+//
+//        if($result->success === true){
+//            $request->session()->flash('msg_success', $result->msg);
+//        }else{
+//            $request->session()->flash('msg_error', $result->msg);
+//        }
+//        return redirect()->back();
+//    }
+//
+//
+//    public function removeByDoctor(Request $request)
+//    {
+//        $param = [
+//            'doctorSupportSeekingId' =>  $request->doctorSupportSeekingId,
+//            'doctorId' => $request->doctorId
+//        ];
+//        $result = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'doctors-program/remove-by-doctor','POST', $param);
+//
+//        if($result->success === true){
+//            $request->session()->flash('msg_success', $result->msg);
+//        }else{
+//            $request->session()->flash('msg_error', $result->msg);
+//        }
+//        return redirect()->back();
+//    }
+
 
 }
