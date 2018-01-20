@@ -70,9 +70,9 @@
                 </table>
             </div>
             <div id="documents" class="col-md-8 table-responsive">
-                <h4>Fund Info
+                <h4>Donation Fund Info
                     @if($auth->user_type == "company" || $auth->user_type == "admin")
-                    <small><a href="#" class="pull-right btn btn-sm btn-primary" data-toggle="modal" data-target="#fundModal">Add Fund</a></small>
+                    <small><a href="#" class="pull-right btn btn-sm btn-primary" data-toggle="modal" data-target="#fundModal">Donate Fund</a></small>
                     @endif
                 </h4>
                 <div class="table-responsive">
@@ -125,7 +125,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Program Fund</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Donate Program Fund</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -153,7 +153,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-sm btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Donate Fund</button>
                     </div>
                 </form>
             </div>
