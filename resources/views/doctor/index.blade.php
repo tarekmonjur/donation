@@ -1,9 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 
-    <h3>Doctors Program
-    {{--<small><a href="#" class="pull-right btn btn-sm btn-primary">Create Program</a></small>--}}
-    </h3>
+    <h3>Doctors Program</h3>
 
     <div class="table-responsive">
         <table id="datatable1" class="table table-hover">
@@ -20,7 +18,9 @@
                 <th>Within</th>
                 <th>Amount</th>
                 <th>Status</th>
+                @if($auth->user_type == "company" || $auth->user_type == "admin")
                 <th>Action</th>
+                @endif
             </tr>
             </thead>
             <tbody style="font-size: 14px">
@@ -43,6 +43,7 @@
                             <span class="badge badge-danger">Unverified</span>
                         @endif
                     </td>
+                    @if($auth->user_type == "company" || $auth->user_type == "admin")
                     <td>
                         <div class="btn-group">
                             @if(isset($doctor->verifiedProgram) && $doctor->verifiedProgram === true)
@@ -52,6 +53,7 @@
                             @endif
                         </div>
                     </td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>

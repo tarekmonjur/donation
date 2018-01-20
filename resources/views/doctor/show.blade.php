@@ -8,7 +8,7 @@
         <p>{{$doctor->title or 'No Title...'}}</p>
         <br>
         <div class="row">
-            <div id="donation" class="col-md-5 table-responsive">
+            <div id="donation" class="col-md-4 table-responsive">
                 <h4>Donation Info</h4>
                 <table class="table table-sm table-bordered">
                     <tbody>
@@ -69,19 +69,22 @@
                     </tbody>
                 </table>
             </div>
-            <div id="documents" class="col-md-7 table-responsive">
+            <div id="documents" class="col-md-8 table-responsive">
                 <h4>Fund Info
+                    @if($auth->user_type == "company" || $auth->user_type == "admin")
                     <small><a href="#" class="pull-right btn btn-sm btn-primary" data-toggle="modal" data-target="#fundModal">Add Fund</a></small>
+                    @endif
                 </h4>
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
                         <thead>
                         <tr style="font-size: 12px" class="bg-light">
                             <th>Name</th>
+                            <th>Company</th>
                             <th>Mobile</th>
                             <th>Email</th>
-                            <th>Date</th>
                             <th>Amount</th>
+                            <th>Date</th>
                             <th>Status</th>
                         </tr>
                         </thead>
@@ -89,10 +92,17 @@
                         @foreach($doctor->supportedBy as $fund)
                             <tr>
                                 <td>{{$fund->donatorName}}</td>
+                                <td>{{$fund->donatorCompany}}</td>
+                                @if($auth->user_type == "admin" || $fund->donatorMobile == $auth->mobile_no)
                                 <td>{{$fund->donatorMobile}}</td>
                                 <td>{{$fund->donatorEmail}}</td>
-                                <td>{{$fund->donatedAt}}</td>
                                 <td>{{$fund->donatedAmount}}</td>
+                                @else
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                @endif
+                                <td>{{$fund->donatedAt}}</td>
                                 <td>
                                     @if($fund->isVerified === true)
                                     <label class="badge badge-success">Verified</label>
@@ -124,18 +134,18 @@
                     {{csrf_field()}}
                     <input type="hidden" value="{{$doctor->id}}" name="doctorSupportSeekingId">
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control form-control-sm" name="name" id="name" placeholder="Enter name">
-                        </div>
-                        <div class="form-group">
-                            <label for="mobile_no">Mobile No</label>
-                            <input type="text" class="form-control form-control-sm" name="mobile_no" id="mobile_no"  placeholder="Enter mobile no">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email address</label>
-                            <input type="email" class="form-control form-control-sm" name="email" id="email" placeholder="Enter email">
-                        </div>
+                        {{--<div class="form-group">--}}
+                            {{--<label for="name">Name</label>--}}
+                            {{--<input type="hidden" class="form-control form-control-sm" name="name" value="{{$auth->full_name}}" id="name" placeholder="Enter name">--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="mobile_no">Mobile No</label>--}}
+                            {{--<input type="hidden" class="form-control form-control-sm" name="mobile_no" value="{{$auth->mobile_no}}" id="mobile_no"  placeholder="Enter mobile no">--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="email">Email address</label>--}}
+                            {{--<input type="hidden" class="form-control form-control-sm" name="email" value="{{$auth->email}}" id="email" placeholder="Enter email">--}}
+                        {{--</div>--}}
                         <div class="form-group">
                             <label for="amount">Amount</label>
                             <input type="text" class="form-control form-control-sm" name="amount" id="amount" placeholder="Enter amount">
@@ -156,13 +166,17 @@
     <script>
         $("#fund_form").validate({
             rules: {
-                name: "required",
-                mobile_no: "required",
-                email: {
+//                name: "required",
+//                mobile_no: "required",
+//                email: {
+//                    required: true,
+//                    email: true
+//                },
+                amount: {
                     required: true,
-                    email: true
-                },
-                amount: "required"
+                    number: true
+                }
+
             }
         });
     </script>

@@ -77,18 +77,16 @@ class DoctorController extends Controller
         $param = [
             'doctorsProgramId' =>  $request->doctorSupportSeekingId,
             'fund' => [
-                'donatorName' => $request->name,
+                'donatorName' => $this->auth->full_name,
                 'donatorCompany' => $company->company_name,
-                'donatorMobile' => $request->mobile_no,
-                'donatorEmail' => $request->email,
+                'donatorMobile' => $this->auth->mobile_no,
+                'donatorEmail' => $this->auth->email,
                 'donatedAmount' => $request->amount,
                 'donatedAt' => date('Y-m-d h:i:s'),
                 'isAppUser' => false,
                 'isIndividual' => false,
             ]
         ];
-
-//        dd($param);
 
         $result = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'doctors-program/fund/add','POST', $param);
 
