@@ -1,6 +1,8 @@
 @extends('layouts.layout')
 @section('content')
-
+    <style>
+        label.error{color: red}
+    </style>
     <section>
         <h3>Doctor Program Details</h3>
         <p>{{$doctor->title or 'No Title...'}}</p>
@@ -68,7 +70,9 @@
                 </table>
             </div>
             <div id="documents" class="col-md-7 table-responsive">
-                <h4>Fund</h4>
+                <h4>Fund Info
+                    <small><a href="#" class="pull-right btn btn-sm btn-primary" data-toggle="modal" data-target="#fundModal">Add Fund</a></small>
+                </h4>
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
                         <thead>
@@ -104,4 +108,62 @@
             </div>
         </div>
         <br>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="fundModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Program Fund</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="fund_form" method="post" action="{{url('doctors-program/fund-add')}}">
+                    {{csrf_field()}}
+                    <input type="hidden" value="{{$doctor->id}}" name="doctorSupportSeekingId">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control form-control-sm" name="name" id="name" placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile_no">Mobile No</label>
+                            <input type="text" class="form-control form-control-sm" name="mobile_no" id="mobile_no"  placeholder="Enter mobile no">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control form-control-sm" name="email" id="email" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="text" class="form-control form-control-sm" name="amount" id="amount" placeholder="Enter amount">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('script')
+    <script src="{{asset('js/jquery.validate.js')}}"></script>
+    <script>
+        $("#fund_form").validate({
+            rules: {
+                name: "required",
+                mobile_no: "required",
+                email: {
+                    required: true,
+                    email: true
+                },
+                amount: "required"
+            }
+        });
+    </script>
 @endsection

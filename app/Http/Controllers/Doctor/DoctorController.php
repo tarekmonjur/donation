@@ -69,6 +69,38 @@ class DoctorController extends Controller
     }
 
 
+    public function addFund(Request $request)
+    {
+        $companyList = collect($this->companyList());
+        $company= $companyList->firstWhere('id',$this->auth->company_id);
+
+        $param = [
+            'doctorsProgramId' =>  $request->doctorSupportSeekingId,
+            'fund' => [
+                'donatorName' => $request->name,
+                'donatorCompany' => $company->company_name,
+                'donatorMobile' => $request->mobile_no,
+                'donatorEmail' => $request->email,
+                'donatedAmount' => $request->amount,
+                'donatedAt' => date('Y-m-d h:i:s'),
+                'isAppUser' => false,
+                'isIndividual' => false,
+            ]
+        ];
+
+//        dd($param);
+
+        $result = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'doctors-program/fund/add','POST', $param);
+
+        if($result->success === true){
+            $request->session()->flash('msg_success', 'Fund successfully added.');
+        }else{
+            $request->session()->flash('msg_error', $result->msg);
+        }
+        return redirect()->back();
+    }
+
+
 //    public function myRaised(Request $request)
 //    {
 //        $data['doctors'] = [];
