@@ -42,6 +42,10 @@ class DoctorController extends Controller
 
     public function show(Request $request)
     {
+        if(!$this->auth->user_type == "admin" || !$this->auth->user_type == "company"){
+            return redirect()->back();
+        }
+
         $data['doctor'] = [];
         $doctors = $this->httpClient->sendRequest($this->httpClient->apiUrl.'doctors-program/'.$request->doctorSupportSeekingId,'GET', []);
 
@@ -53,8 +57,12 @@ class DoctorController extends Controller
     }
 
 
-    public function verified(Request $request)
+    public function verifiedProgram(Request $request)
     {
+        if(!$this->auth->user_type == "admin"){
+            return redirect()->back();
+        }
+
         $param = [
             'doctorSupportSeekingId' =>  $request->doctorSupportSeekingId
         ];
@@ -71,6 +79,10 @@ class DoctorController extends Controller
 
     public function addFund(Request $request)
     {
+        if(!$this->auth->user_type == "company"){
+            return redirect()->back();
+        }
+
         $companyList = collect($this->companyList());
         $company= $companyList->firstWhere('id',$this->auth->company_id);
 
@@ -101,6 +113,10 @@ class DoctorController extends Controller
 
     public function fundChangeStatus(Request $request)
     {
+        if(!$this->auth->user_type == "admin"){
+            return redirect()->back();
+        }
+        
         $param = [
             'doctorsProgramId' =>  $request->doctorsProgramId,
             'fundId' =>  $request->fundId,

@@ -70,7 +70,7 @@ Route::group(['prefix'=>'doctors-program', 'namespace' => 'Doctor'],function(){
     Route::get('/{doctorSupportSeekingId}','DoctorController@show');
     Route::post('/fund-add','DoctorController@addFund');
     Route::get('/fund-status/{doctorsProgramId}/{fundId}/{status}','DoctorController@fundChangeStatus');
-    Route::get('/verified/{doctorSupportSeekingId}','DoctorController@verified');
+    Route::get('/verified/{doctorSupportSeekingId}','DoctorController@verifiedProgram');
 
 //    Route::get('/my-raised/{doctorId}','DoctorController@myRaised');
 //    Route::get('/pharma-approval/{doctorSupportSeekingId}/{pharmaName}','DoctorController@pharmaApproval');
