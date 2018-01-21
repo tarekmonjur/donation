@@ -2,7 +2,7 @@
 @section('content')
 
     <h3>Doctors Program</h3>
-
+    <hr>
     <div class="table-responsive">
         <table id="datatable1" class="table table-hover">
             <thead>

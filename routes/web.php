@@ -71,11 +71,14 @@ Route::group(['prefix'=>'doctors-program', 'namespace' => 'Doctor'],function(){
     Route::post('/fund-add','DoctorController@addFund');
     Route::get('/fund-status/{doctorsProgramId}/{fundId}/{status}','DoctorController@fundChangeStatus');
     Route::get('/verified/{doctorSupportSeekingId}','DoctorController@verifiedProgram');
+});
 
-//    Route::get('/my-raised/{doctorId}','DoctorController@myRaised');
-//    Route::get('/pharma-approval/{doctorSupportSeekingId}/{pharmaName}','DoctorController@pharmaApproval');
-//    Route::get('/accept-by-doctor/{doctorSupportSeekingId}/{doctorId}/{status?}','DoctorController@acceptByDoctor');
-//    Route::get('/remove-by-doctor/{doctorSupportSeekingId}/{doctorId}/{status?}','DoctorController@removeByDoctor');
+//Coupon Manage Route
+Route::group(['prefix'=>'coupon-manager', 'namespace' => 'Coupon'],function(){
+    Route::get('/','CouponController@index');
+    Route::post('/create','CouponController@createCoupon');
+    Route::get('/change-status/{coupon_id}/{status}','CouponController@changeStatus');
+    Route::post('/update','CouponController@updateCoupon');
 });
 
 

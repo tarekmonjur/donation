@@ -1,9 +1,10 @@
 @extends('layouts.layout')
 @section('content')
 
-    <h2>Donations</h2>
+    <h3>Donations</h3>
+    <hr>
     @if($auth->user_type != "company")
-    <form action="" method="get" class="form-inline" style="position: absolute;left: 20%;top: 50px; z-index:999">
+    <form action="" method="get" class="form-inline" style="position: absolute;left: 20%;top: 80px; z-index:999">
         <div class="form-group">
             <label><strong>Partial : </strong></label>
             <select class="form-control form-control-sm col-form-label-sm mx-sm-2" name="isPartial">

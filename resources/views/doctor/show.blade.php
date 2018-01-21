@@ -1,8 +1,5 @@
 @extends('layouts.layout')
 @section('content')
-    <style>
-        label.error{color: red}
-    </style>
     <section>
         <h3>Doctor Program Details</h3>
         <p>{{$doctor->title or 'No Title...'}}</p>

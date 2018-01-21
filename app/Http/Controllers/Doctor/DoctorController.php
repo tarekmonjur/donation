@@ -116,7 +116,7 @@ class DoctorController extends Controller
         if(!$this->auth->user_type == "admin"){
             return redirect()->back();
         }
-        
+
         $param = [
             'doctorsProgramId' =>  $request->doctorsProgramId,
             'fundId' =>  $request->fundId,
