@@ -99,6 +99,25 @@ class DoctorController extends Controller
     }
 
 
+    public function fundChangeStatus(Request $request)
+    {
+        $param = [
+            'doctorsProgramId' =>  $request->doctorsProgramId,
+            'fundId' =>  $request->fundId,
+            'verificationStatus' =>  ($request->status == 1 || $request->status == '1')?true:false,
+        ];
+
+        $result = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'doctors-program/accept-by-doctor','POST', $param);
+
+        if($result->success === true){
+            $request->session()->flash('msg_success', $result->msg);
+        }else{
+            $request->session()->flash('msg_error', $result->msg);
+        }
+        return redirect()->back();
+    }
+
+
 //    public function myRaised(Request $request)
 //    {
 //        $data['doctors'] = [];

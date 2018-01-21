@@ -18,7 +18,7 @@
                 <th>Within</th>
                 <th>Amount</th>
                 <th>Status</th>
-                @if($auth->user_type == "company" || $auth->user_type == "admin")
+                @if($auth->user_type == "admin")
                 <th>Action</th>
                 @endif
             </tr>
@@ -43,13 +43,13 @@
                             <span class="badge badge-danger">Unverified</span>
                         @endif
                     </td>
-                    @if($auth->user_type == "company" || $auth->user_type == "admin")
+                    @if($auth->user_type == "admin")
                     <td>
                         <div class="btn-group">
                             @if(isset($doctor->verifiedProgram) && $doctor->verifiedProgram === true)
-                                {{--<a class="btn btn-xs btn-success" href="#" onclick="return confirmAction('Unremoved','Are you sure unremoved this?','{{url('/doctors-program/verified/'.$doctor->id)}}')"></a>--}}
+                                {{--<a class="btn btn-xs btn-success" href="#" onclick="return confirmAction('unverified','Are you sure unverified this?','{{url('/doctors-program/verified/'.$doctor->id)}}')"></a>--}}
                             @else
-                                <a class="btn btn-xs btn-success" href="#" onclick="return confirmAction('Removed','Are you sure removed this?','{{url('/doctors-program/verified/'.$doctor->id)}}')">Verified</a>
+                                <a class="btn btn-xs btn-success" href="#" onclick="return confirmAction('verify','Are you sure verify this?','{{url('/doctors-program/verified/'.$doctor->id)}}')">Verified</a>
                             @endif
                         </div>
                     </td>

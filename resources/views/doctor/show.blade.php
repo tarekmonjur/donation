@@ -71,7 +71,7 @@
             </div>
             <div id="documents" class="col-md-8 table-responsive">
                 <h4>Donation Fund Info
-                    @if($auth->user_type == "company" || $auth->user_type == "admin")
+                    @if($auth->user_type == "company")
                     <small><a href="#" class="pull-right btn btn-sm btn-primary" data-toggle="modal" data-target="#fundModal">Donate Fund</a></small>
                     @endif
                 </h4>
@@ -86,32 +86,81 @@
                             <th>Amount</th>
                             <th>Date</th>
                             <th>Status</th>
+                            @if($auth->user_type == "admin")
+                            <th>Action</th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody style="font-size: 14px">
+                        <?php $check=0;?>
                         @foreach($doctor->supportedBy as $fund)
-                            <tr>
-                                <td>{{$fund->donatorName}}</td>
-                                <td>{{$fund->donatorCompany}}</td>
-                                @if($auth->user_type == "admin" || $fund->donatorMobile == $auth->mobile_no)
-                                <td>{{$fund->donatorMobile}}</td>
-                                <td>{{$fund->donatorEmail}}</td>
-                                <td>{{$fund->donatedAmount}}</td>
+                            @if($auth->user_type == "admin")
+                                <?php $check=1;?>
+                                <tr>
+                                    <td>{{$fund->donatorName}}</td>
+                                    <td>{{$fund->donatorCompany}}</td>
+                                    <td>{{$fund->donatorMobile}}</td>
+                                    <td>{{$fund->donatorEmail}}</td>
+                                    <td>{{$fund->donatedAmount}}</td>
+                                    <td>{{$fund->donatedAt}}</td>
+                                    <td>
+                                        @if($fund->isVerified === true)
+                                        <label class="badge badge-success">Verified</label>
+                                        @else
+                                        <label class="badge badge-danger">Unverified</label>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($fund->isVerified === true)
+                                        <a class="btn btn-sm btn-danger" href="#" onclick="return confirmAction('unverified','Are you sure unverified this?','{{url('/doctors-program/fund-status/'.$doctor->id.'/'.$fund->id.'/0')}}')">Unverified</a>
+                                        @else
+                                        <a class="btn btn-sm btn-success" href="#" onclick="return confirmAction('Verified','Are you sure verified this?','{{url('/doctors-program/fund-status/'.$doctor->id.'/'.$fund->id.'/1')}}')">Verified</a>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @elseif($auth->user_type == "company")
+                                @if($fund->donatorMobile == $auth->mobile_no)
+                                    <?php $check=1;?>
+                                    <tr>
+                                        <td>{{$fund->donatorName}}</td>
+                                        <td>{{$fund->donatorCompany}}</td>
+                                        <td>{{$fund->donatorMobile}}</td>
+                                        <td>{{$fund->donatorEmail}}</td>
+                                        <td>{{$fund->donatedAmount}}</td>
+                                        <td>{{$fund->donatedAt}}</td>
+                                        <td>
+                                            @if($fund->isVerified === true)
+                                                <label class="badge badge-success">Verified</label>
+                                            @else
+                                                <label class="badge badge-danger">Unverified</label>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @else
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                @endif
-                                <td>{{$fund->donatedAt}}</td>
-                                <td>
                                     @if($fund->isVerified === true)
-                                    <label class="badge badge-success">Verified</label>
-                                    @else
-                                    <label class="badge badge-danger">Unverified</label>
+                                        <?php $check=1;?>
+                                    <tr>
+                                        <td>{{$fund->donatorName}}</td>
+                                        <td>{{$fund->donatorCompany}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{$fund->donatedAt}}</td>
+                                        <td>
+                                            <label class="badge badge-success">Verified</label>
+                                        </td>
+                                    </tr>
                                     @endif
-                                </td>
-                            </tr>
+                                @endif
+
+                            @endif
                         @endforeach
+
+                        @if($check == 0)
+                            <tr>
+                                <td colspan="7">No data available</td>
+                            </tr>
+                        @endif
                         </tbody>
                     </table>
                 </div>
@@ -134,18 +183,6 @@
                     {{csrf_field()}}
                     <input type="hidden" value="{{$doctor->id}}" name="doctorSupportSeekingId">
                     <div class="modal-body">
-                        {{--<div class="form-group">--}}
-                            {{--<label for="name">Name</label>--}}
-                            {{--<input type="hidden" class="form-control form-control-sm" name="name" value="{{$auth->full_name}}" id="name" placeholder="Enter name">--}}
-                        {{--</div>--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label for="mobile_no">Mobile No</label>--}}
-                            {{--<input type="hidden" class="form-control form-control-sm" name="mobile_no" value="{{$auth->mobile_no}}" id="mobile_no"  placeholder="Enter mobile no">--}}
-                        {{--</div>--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label for="email">Email address</label>--}}
-                            {{--<input type="hidden" class="form-control form-control-sm" name="email" value="{{$auth->email}}" id="email" placeholder="Enter email">--}}
-                        {{--</div>--}}
                         <div class="form-group">
                             <label for="amount">Amount</label>
                             <input type="text" class="form-control form-control-sm" name="amount" id="amount" placeholder="Enter amount">
