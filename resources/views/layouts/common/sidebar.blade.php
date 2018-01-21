@@ -17,15 +17,18 @@
             </li>
         @endif
 
-        {{--@if($auth->user_type == "company")--}}
-            {{--<li class="nav-item">--}}
-                {{--<a class="nav-link @if($menu == 'coupons') active @endif" href="{{url('/coupons')}}">Coupons</a>--}}
-            {{--</li>--}}
-        {{--@endif--}}
+        @if($auth->user_type == "company")
+            <li class="nav-item">
+                <a class="nav-link @if($menu == 'coupons') active @endif" href="{{url('/coupons')}}">Coupons</a>
+            </li>
+        @endif
 
         @if($auth->user_type == "admin")
             <li class="nav-item">
                 <a class="nav-link @if($menu == 'coupon-manager') active @endif" href="{{url('/coupon-manager')}}">Coupon Manage</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @if($menu == 'company-account') active @endif" href="{{url('/company-account')}}">Company Account</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link @if($menu == 'logs') active @endif" href="{{url('/logs')}}">Logs</a>

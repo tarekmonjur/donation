@@ -75,10 +75,19 @@ Route::group(['prefix'=>'doctors-program', 'namespace' => 'Doctor'],function(){
 
 //Coupon Manage Route
 Route::group(['prefix'=>'coupon-manager', 'namespace' => 'Coupon'],function(){
+    Route::get('/','CouponManagerController@index');
+    Route::post('/create','CouponManagerController@createCoupon');
+    Route::get('/change-status/{coupon_id}/{status}','CouponManagerController@changeStatus');
+    Route::post('/update','CouponManagerController@updateCoupon');
+});
+
+Route::group(['prefix'=>'coupons', 'namespace' => 'Coupon'],function(){
     Route::get('/','CouponController@index');
-    Route::post('/create','CouponController@createCoupon');
-    Route::get('/change-status/{coupon_id}/{status}','CouponController@changeStatus');
-    Route::post('/update','CouponController@updateCoupon');
+});
+
+Route::group(['prefix'=>'company-account', 'namespace' => 'Coupon'],function(){
+    Route::get('/','CompanyAccountController@index');
+    Route::get('/change-status/{account_number}/{status}','CompanyAccountController@changeStatus');
 });
 
 

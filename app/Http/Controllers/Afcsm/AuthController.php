@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Afcsm;
 
+use App\Http\Controllers\Coupon\CouponApiController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -35,6 +36,25 @@ class AuthController extends Controller
         if($attempt->code == 200){
             session()->put('api-token', $attempt->data->{'api-token'});
             session()->put('auth', $attempt->data);
+
+            if($attempt->data->user_type == 'company') {
+                $companyAccountFind = new CouponApiController;
+                $companyAccount = $companyAccountFind->sendRequestJson($companyAccountFind->apiUrl . 'company-account/find', 'POST', ['companyId' => $attempt->data->company_id,]);
+
+                if ($companyAccount->success == true && $companyAccount->data != null) {
+                    session()->put('company_account', $companyAccount->data);
+                } else {
+                    $companyLists = $this->companyList();
+                    $companyList = collect($companyLists);
+                    $company = $companyList->firstWhere('id', $attempt->data->company_id);
+
+                    $companyAccount = $companyAccountFind->sendRequestJson($companyAccountFind->apiUrl . 'company-account/create', 'POST', ['companyId' => $attempt->data->company_id, 'companyName' => $company->company_name,]);
+
+                    if ($companyAccount->success == true && $companyAccount->data != null) {
+                        session()->put('company_account', $companyAccount->data);
+                    }
+                }
+            }
             return redirect('/');
         }else{
 //            dd($attempt);

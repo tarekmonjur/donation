@@ -12,12 +12,12 @@
             <thead>
             <tr style="font-size: 12px" class="bg-light">
                 <th>#</th>
-                <th>title</th>
-                <th>serial</th>
-                <th>code</th>
-                <th>amount</th>
-                <th>created</th>
-                <th>updated</th>
+                <th>Title</th>
+                <th>Serial</th>
+                <th>Code</th>
+                <th>Amount</th>
+                <th>Created</th>
+                <th>Updated</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>

@@ -36,75 +36,9 @@ class CouponController extends Controller
         if($doctors->success == true) {
             $data['coupons'] = ($doctors->data)?:[];
         }
-        return view('coupon.index')->with($data);
+        return view('coupon.coupon')->with($data);
     }
 
-
-    public function createCoupon(Request $request)
-    {
-        if(!$this->auth->user_type == "admin"){
-            return redirect()->back();
-        }
-
-        $param = [
-            'totalCouponCount' =>  $request->coupon_no,
-            'couponTitle' =>  $request->title,
-            'couponInitAmount' =>  $request->amount,
-        ];
-
-        $result = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'coupon-manager/create','POST', $param);
-
-        if($result->success === true){
-            $request->session()->flash('msg_success', $result->msg);
-        }else{
-            $request->session()->flash('msg_error', $result->msg);
-        }
-        return redirect()->back();
-    }
-
-
-    public function changeStatus(Request $request)
-    {
-        if(!$this->auth->user_type == "admin"){
-            return redirect()->back();
-        }
-
-        $param = [
-            'couponIds' =>  [$request->coupon_id],
-            'status' =>  ($request->status == 1 || $request->status == '1')?true:false,
-        ];
-
-        $result = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'coupon-manager/change-status','POST', $param);
-
-        if($result->success === true){
-            $request->session()->flash('msg_success', $result->msg);
-        }else{
-            $request->session()->flash('msg_error', $result->msg);
-        }
-        return redirect()->back();
-    }
-
-
-    public function updateCoupon(Request $request)
-    {
-        if(!$this->auth->user_type == "admin"){
-            return redirect()->back();
-        }
-
-        $param = [
-            'couponIds' =>  [$request->id],
-            'amount' =>  $request->amount,
-        ];
-
-        $result = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'coupon-manager/change-amount','POST', $param);
-
-        if($result->success === true){
-            $request->session()->flash('msg_success', $result->msg);
-        }else{
-            $request->session()->flash('msg_error', $result->msg);
-        }
-        return redirect()->back();
-    }
 
 
 }
