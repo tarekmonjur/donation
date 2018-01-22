@@ -312,7 +312,7 @@
                         <th>Date</th>
                         <th>App User</th>
                         <th>Individual</th>
-                        <th>Amount</th>
+                        <th>Amount (BDT)</th>
                         @if($auth->user_type == "company")
                         <th>Status</th>
                         @elseif($auth->user_type == "admin")

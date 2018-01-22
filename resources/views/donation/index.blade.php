@@ -40,9 +40,9 @@
                 <th>#</th>
                 <th>Title</th>
                 <th>Disease Stage</th>
-                <th>Target Amount</th>
+                <th>Target Amount (BDT)</th>
                 <th>Target Date</th>
-                <th>Collected Amount</th>
+                <th>Collected Amount (BDT)</th>
                 <th>Active Program</th>
                 <th>Fund Summary</th>
                 <th>Status</th>
