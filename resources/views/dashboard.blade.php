@@ -35,22 +35,22 @@
 
     <section class="row">
         @if($chart_one == true)
-        <div id="pichart1" class="col-6 border"></div>
+        <div id="pichart1" class="col-6 border" style="min-height: 400px"></div>
         @else
-        <div class="col-6 border"><h3>Not Data Available</h3></div>
+        <div class="col-6 border" style="min-height: 400px"><h4>Not Data Available</h4></div>
         @endif
 
         @if($chart_two)
-        <div id="pichart2" class="col-6 border"></div>
+        <div id="pichart2" class="col-6 border" style="min-height: 400px"></div>
         @else
-        <div class="col-6 border"><h3>Not Data Available</h3></div>
+        <div class="col-6 border" style="min-height: 400px"><h4>Not Data Available</h4></div>
         @endif
 
         @if($auth->user_type == 'admin')
             @if($chart_three)
-            <div id="pichart3" class="col-12 border"></div>
+            <div id="pichart3" class="col-12 border" style="min-height: 400px"></div>
             @else
-            <div class="col-12 border"><h3>Not Data Available</h3></div>
+            <div class="col-12 border" style="min-height: 400px"><h4>Not Data Available</h4></div>
             @endif
         @endif
     </section>
@@ -58,9 +58,9 @@
     @if($auth->user_type == 'admin')
     <section class="row">
         @if($chart_four)
-        <div id="linechart1" class="col-12"></div>
+        <div id="linechart1" class="col-12" style="min-height: 400px"></div>
         @else
-        <div class="col-12"><h3>Not Data Available</h3></div>
+        <div class="col-12 border" style="min-height: 400px"><h4>Not Data Available</h4></div>
         @endif
     </section>
     @endif
