@@ -19,7 +19,11 @@
 
         @if($auth->user_type == "company")
             <li class="nav-item">
-                <a class="nav-link @if($menu == 'coupons') active @endif" href="{{url('/coupons')}}">Coupons</a>
+                <?php
+                $accountNumber = session('company_account')->accountNumber;
+                $companyId = session('company_account')->companyId;
+                ?>
+                <a class="nav-link @if($menu == 'company-account') active @endif" href="{{url('/company-account/'.$accountNumber.'/'.$companyId)}}">Company Account</a>
             </li>
         @endif
 

@@ -26,7 +26,7 @@
             @foreach($accounts as $account)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$account->companyName}}</td>
+                    <td><a href="{{url('/company-account/'.$account->accountNumber.'/'.$account->companyId)}}">{{$account->companyName}}</a></td>
                     <td>{{$account->accountNumber}}</td>
                     <td>{{$account->currentBalance}}</td>
                     <td>{{$account->onHoldAmount}}</td>

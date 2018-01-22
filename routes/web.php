@@ -73,6 +73,7 @@ Route::group(['prefix'=>'doctors-program', 'namespace' => 'Doctor'],function(){
     Route::get('/verified/{doctorSupportSeekingId}','DoctorController@verifiedProgram');
 });
 
+
 //Coupon Manage Route
 Route::group(['prefix'=>'coupon-manager', 'namespace' => 'Coupon'],function(){
     Route::get('/','CouponManagerController@index');
@@ -81,13 +82,11 @@ Route::group(['prefix'=>'coupon-manager', 'namespace' => 'Coupon'],function(){
     Route::post('/update','CouponManagerController@updateCoupon');
 });
 
-Route::group(['prefix'=>'coupons', 'namespace' => 'Coupon'],function(){
-    Route::get('/','CouponController@index');
-});
-
 Route::group(['prefix'=>'company-account', 'namespace' => 'Coupon'],function(){
     Route::get('/','CompanyAccountController@index');
+    Route::post('/deposit','CompanyAccountController@deposit');
     Route::get('/change-status/{account_number}/{status}','CompanyAccountController@changeStatus');
+    Route::get('/{accountNumber}/{companyId}','CompanyAccountController@show');
 });
 
 

@@ -88,6 +88,7 @@ class DoctorController extends Controller
 
         $param = [
             'doctorsProgramId' =>  $request->doctorSupportSeekingId,
+            'companyAccountNumber' =>  session('company_account')->accountNumber,
             'fund' => [
                 'donatorName' => $this->auth->full_name,
                 'donatorCompany' => $company->company_name,

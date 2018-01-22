@@ -62,4 +62,58 @@ class CompanyAccountController extends Controller
     }
 
 
+    public function show(Request $request)
+    {
+
+        if(!$this->auth->user_type != "admin"){
+            if(intval($this->auth->company_id) != intval($request->companyId)) {
+                return redirect()->back();
+            }
+        }
+
+        $param = [
+            'companyId' => $request->companyId,
+            'companyAccountNumber' => $request->accountNumber
+        ];
+
+        $data['account'] = [];
+        $account = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'company-account/details','POST', $param);
+
+        if($account->success == true) {
+            $data['account'] = ($account->data)?:[];
+        }
+
+        if(empty($data['account'])){
+            return redirect()->back();
+        }
+
+        $onHoldTxIds = isset($data['account']->onHoldTxIds)?:[];
+        $withdrawTxIds = isset($data['account']->withdrawTxIds)?:[];
+        $depositTxIds = isset($data['account']->depositTxIds)?:[];
+
+        $data['txData'] = array_merge($onHoldTxIds, $withdrawTxIds, $depositTxIds);
+
+        return view('coupon.account_view')->with($data);
+    }
+
+
+    public function deposit(Request $request)
+    {
+        $param = [
+            'accountNumber' =>  $request->accountNumber,
+            'code' =>  $request->code,
+            'serial' =>  $request->serial,
+        ];
+
+        $result = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'company-account/deposit','POST', $param);
+
+        if($result->success === true){
+            $request->session()->flash('msg_success', $result->msg);
+        }else{
+            $request->session()->flash('msg_error', $result->msg);
+        }
+        return redirect()->back();
+    }
+
+
 }
