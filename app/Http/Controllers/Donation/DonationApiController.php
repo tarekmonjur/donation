@@ -21,7 +21,7 @@ class DonationApiController extends Controller
         }
         elseif(env('DONATION_API_MODE') == 1)
         {
-            $this->apiUrl = "https://103.23.41.189:3000/api/admin/v1/";
+            $this->apiUrl = "https://localhost:5959/api/admin/v1/";
         }
 
     }
