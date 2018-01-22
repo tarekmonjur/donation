@@ -333,7 +333,9 @@
                                 <td>{{$fund->donatorMobile}}</td>
                                 <td>{{$fund->donatorEmail}}</td>
                                 <td>{{date("d M Y",strtotime($fund->donatedAt))}}</td>
-                                <td>@if($fund->isAppUser) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
+                                <td>
+                                    @if($fund->isAppUser == true)<span class="badge badge-success">{{$fund->userType or ''}}</span> @else <span class="badge badge-danger">{{$fund->userType or ''}}</span>@endif
+                                </td>
                                 <td>@if($fund->isIndividual) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
                                 <td>{{$fund->donatedAmount}}</td>
                                 <td>
@@ -347,7 +349,9 @@
                                 <td>{{$fund->donatorMobile}}</td>
                                 <td>{{$fund->donatorEmail}}</td>
                                 <td>{{date("d M Y",strtotime($fund->donatedAt))}}</td>
-                                <td>@if($fund->isAppUser) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
+                                <td>
+                                    @if($fund->isAppUser == true) <span class="badge badge-success">{{$fund->userType or ''}}</span> @else <span class="badge badge-danger">{{$fund->userType or ''}}</span> @endif
+                                </td>
                                 <td>@if($fund->isIndividual) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
                                 <td>{{$fund->donatedAmount}}</td>
                                 <td>
