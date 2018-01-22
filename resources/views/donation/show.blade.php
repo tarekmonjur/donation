@@ -47,7 +47,9 @@
                 <li class="breadcrumb-item"><a href="#payment-info">Payment Info</a></li>
                 <li class="breadcrumb-item"><a href="#doctor-supporting">Doctors Supporting</a></li>
                 <li class="breadcrumb-item"><a href="#donation-fund">Donation Fund</a></li>
+                @if($auth->user_type == "admin")
                 <li class="breadcrumb-item"><a href="#donation-comments">Donation Comments</a></li>
+                @endif
             </ol>
         </nav>
     </div>
@@ -390,25 +392,25 @@
                     <th>Name</th>
                     <th>Comment</th>
                     <th>Date</th>
+                    @if($auth->user_type == "admin")
                     <th>Action</th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($donation->comments as $comment)
+                @foreach($donation->comments as $comment)
                     <tr>
                         <td>{{$comment->id}}</td>
                         <td>{{$comment->name}}</td>
                         <td>{{$comment->comment}}</td>
                         <td>{{$comment->at}}</td>
+                        @if($auth->user_type == "admin")
                         <td>
-
+                            <a class="btn btn-sm btn-danger" href="#" onclick="return confirmAction('delete','Are you sure delete this?','{{url('/donations/comment-delete/'.$comment->{'_id'})}}')">Delete</a>
                         </td>
+                        @endif
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="5"></td>
-                    </tr>
-                @endforelse
+                @endforeach
                 </tbody>
             </table>
         </div>

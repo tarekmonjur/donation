@@ -258,5 +258,24 @@ class DonationController extends Controller
     }
 
 
+    public function removeComment(Request $request)
+    {
+        if($this->auth->user_type != "admin"){
+            return redirect()->back();
+        }
+//        dd($this->httpClient->apiUrl.'program/comment/remove', $request->userCommentId);
+
+        $donation = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'program/comment/remove','POST', [
+            "userCommentId" => $request->userCommentId
+        ]);
+        if($donation->success == true) {
+            $request->session()->flash("msg_success", $donation->msg);
+        }else{
+            $request->session()->flash("msg_error", $donation->msg);
+        }
+        return redirect()->back();
+    }
+
+
 
 }

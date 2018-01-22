@@ -44,6 +44,8 @@ Route::group(['prefix'=>'donations', 'namespace' => 'Donation'],function(){
 
     Route::get('/edit/{id}','DonationController@edit');
     Route::post('/edit','DonationController@update');
+
+    Route::get('/comment-delete/{userCommentId}','DonationController@removeComment');
 });
 
 Route::get('/logs','DashboardController@logs');

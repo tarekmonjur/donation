@@ -24,7 +24,7 @@
             box-shadow: 0px 0px 3px 0px #e9ecef!important;
         }
         label.error{color: red}
-        .swal2-confirm btn btn-success{margin-right: 5px!important;}
+        .swal2-confirm.btn.btn-success{margin-right: 5px!important;}
     </style>
 
     @yield('style')
