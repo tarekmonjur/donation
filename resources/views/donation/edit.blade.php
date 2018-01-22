@@ -144,7 +144,71 @@
                              <option value="Thakurgaon" @if($donation->patientProfile->city == 'Thakurgaon') selected @endif>Thakurgaon</option>
                         </select>
                         @else
-                        <input type="text" class="form-control" id="city" name="city" value="{{$donation->patientProfile->city or ''}}" placeholder="Enter city">
+                        <select name="city" id="city" class="form-control">
+                            <option value="Bandarban">Bandarban</option>
+                            <option value="Barguna">Barguna</option>
+                            <option value="Barisal">Barisal</option>
+                            <option value="Bhola" >Bhola</option>
+                            <option value="Bogra" >Bogra</option>
+                            <option value="Brahmanbaria">Brahmanbaria</option>
+                            <option value="Chandpur" >Chandpur</option>
+                            <option value="Chapainababganj" >Chapainababganj</option>
+                            <option value="Chittagong" >Chittagong</option>
+                            <option value="Chuadanga" >Chuadanga</option>
+                            <option value="Comilla" >Comilla</option>
+                            <option value="Coxs bazar" >Cox's bazar</option>
+                            <option value="Dhaka" >Dhaka</option>
+                            <option value="Dinajpur" >Dinajpur</option>
+                            <option value="Faridpur" >Faridpur</option>
+                            <option value="Feni"> Feni</option>
+                            <option value="Gaibandha" >Gaibandha</option>
+                            <option value="Gazipur" >Gazipur</option>
+                            <option value="Gopalganj" >Gopalganj</option>
+                            <option value="Habiganj" >Habiganj</option>
+                            <option value="Jamalpur" >Jamalpur</option>
+                            <option value="Jessore" >Jessore</option>
+                            <option value="Jhalokati" >Jhalokati</option>
+                            <option value="Jhenaidah" >Jhenaidah</option>
+                            <option value="Joypurhat" >Joypurhat</option>
+                            <option value="Khagrachhari" >Khagrachhari</option>
+                            <option value="Khulna" >Khulna</option>
+                            <option value="Kishoregonj" >Kishoregonj</option>
+                            <option value="Kurigram" >Kurigram</option>
+                            <option value="Kushtia" >Kushtia</option>
+                            <option value="Lakshmipur" >Lakshmipur</option>
+                            <option value="Lalmonirhat" >Lalmonirhat</option>
+                            <option value="Madaripur" >Madaripur</option>
+                            <option value="Magura" >Magura</option>
+                            <option value="Manikganj" >Manikganj</option>
+                            <option value="Maulvibazar">Maulvibazar</option>
+                            <option value="Meherpur" >Meherpur</option>
+                            <option value="Munshiganj" >Munshiganj</option>
+                            <option value="Mymensingh" >Mymensingh</option>
+                            <option value="Naogaon" >Naogaon</option>
+                            <option value="Narail" >Narail</option>
+                            <option value="Narayanganj">Narayanganj</option>
+                            <option value="Narsingdi" >Narsingdi</option>
+                            <option value="Natore" >Natore</option>
+                            <option value="Netrakona" >Netrakona</option>
+                            <option value="Nilphamari" >Nilphamari</option>
+                            <option value="Noakhali" >Noakhali</option>
+                            <option value="Pabna" >Pabna</option>
+                            <option value="Panchagarh">Panchagarh</option>
+                            <option value="Patuakhali">Patuakhali</option>
+                            <option value="Pirojpur" >Pirojpur</option>
+                            <option value="Rajbari" >Rajbari</option>
+                            <option value="Rajshahi" >Rajshahi</option>
+                            <option value="Rangamati" >Rangamati</option>
+                            <option value="Rangpur" >Rangpur</option>
+                            <option value="Satkhira" >Satkhira</option>
+                            <option value="Shariatpur" >Shariatpur</option>
+                            <option value="Sherpur" >Sherpur</option>
+                            <option value="Sirajganj" >Sirajganj</option>
+                            <option value="Sunamganj" >Sunamganj</option>
+                            <option value="Sylhet" >Sylhet</option>
+                            <option value="Tangail" >Tangail</option>
+                            <option value="Thakurgaon">Thakurgaon</option>
+                        </select>
                         @endif
                     </div>
                 </div>
@@ -175,11 +239,130 @@
                                 <option value="bank transfer" @if($donation->patientProfile->paymentInfo->paymentType == "bank transfer") selected @endif>Bank Transfer</option>
                                 <option value="cash" @if($donation->patientProfile->paymentInfo->paymentType == "cash") selected @endif>Cash</option>
                             </select>
-                            {{--<input type="text" class="form-control" id="paymentType" name="paymentType" value="{{$donation->patientProfile->paymentInfo->paymentType}}" placeholder="Enter payment type">--}}
                         </div>
                         <div class="form-group col-md-6">
                             <label for="bankName">Bank Name</label>
-                            <input type="text" class="form-control" id="bankName" name="bankName" value="{{$donation->patientProfile->paymentInfo->bankName}}" placeholder="Enter bank name">
+                            @if(isset($donation->patientProfile->paymentInfo->bankName))
+                            <select class="form-control" name="bankName" id="bankName">
+                                <option value="AB Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "AB Bank Limited") selected @endif>AB Bank Limited</option>
+                                <option value="Agrani Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Agrani Bank Limited") selected @endif>Agrani Bank Limited</option>
+                                <option value="Al-Arafah Islami Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Al-Arafah Islami Bank Limited") selected @endif>Al-Arafah Islami Bank Limited</option>
+                                <option value="Bangladesh Commerce Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Bangladesh Commerce Bank Limited") selected @endif>Bangladesh Commerce Bank Limited</option>
+                                <option value="Bangladesh Development Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Bangladesh Development Bank Limited") selected @endif>Bangladesh Development Bank Limited</option>
+                                <option value="Bangladesh Krishi Bank" @if($donation->patientProfile->paymentInfo->bankName == "Bangladesh Krishi Bank") selected @endif>Bangladesh Krishi Bank</option>
+                                <option value="Bank Al-Falah Limited" @if($donation->patientProfile->paymentInfo->bankName == "Bank Al-Falah Limited") selected @endif>Bank Al-Falah Limited</option>
+                                <option value="Bank Asia Limited" @if($donation->patientProfile->paymentInfo->bankName == "Bank Asia Limited") selected @endif>Bank Asia Limited</option>
+                                <option value="BASIC Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "BASIC Bank Limited") selected @endif>BASIC Bank Limited</option>
+                                <option value="Citibank N.A" @if($donation->patientProfile->paymentInfo->bankName == "Citibank N.A") selected @endif>Citibank N.A</option>
+                                <option value="Commercial Bank of Ceylon Limited" @if($donation->patientProfile->paymentInfo->bankName == "Commercial Bank of Ceylon Limited") selected @endif>Commercial Bank of Ceylon Limited</option>
+                                <option value="Dhaka Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Dhaka Bank Limited") selected @endif>Dhaka Bank Limited</option>
+                                <option value="Dutch-Bangla Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Dutch-Bangla Bank Limited") selected @endif>Dutch-Bangla Bank Limited</option>
+                                <option value="Eastern Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Eastern Bank Limited") selected @endif>Eastern Bank Limited</option>
+                                <option value="EXIM Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "EXIM Bank Limited") selected @endif>EXIM Bank Limited</option>
+                                <option value="First Security Islami Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "First Security Islami Bank Limited") selected @endif>First Security Islami Bank Limited</option>
+                                <option value="Habib Bank Ltd" @if($donation->patientProfile->paymentInfo->bankName == "Habib Bank Ltd") selected @endif>Habib Bank Ltd.</option>
+                                <option value="ICB Islamic Bank Ltd" @if($donation->patientProfile->paymentInfo->bankName == "ICB Islamic Bank Ltd") selected @endif>ICB Islamic Bank Ltd.</option>
+                                <option value="IFIC Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "IFIC Bank Limited") selected @endif>IFIC Bank Limited</option>
+                                <option value="Islami Bank Bangladesh Ltd" @if($donation->patientProfile->paymentInfo->bankName == "Islami Bank Bangladesh Ltd") selected @endif>Islami Bank Bangladesh Ltd</option>
+                                <option value="Jamuna Bank Ltd" @if($donation->patientProfile->paymentInfo->bankName == "Jamuna Bank Ltd") selected @endif>Jamuna Bank Ltd</option>
+                                <option value="Janata Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Janata Bank Limited") selected @endif>Janata Bank Limited</option>
+                                <option value="Meghna Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Meghna Bank Limited") selected @endif>Meghna Bank Limited</option>
+                                <option value="Mercantile Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Mercantile Bank Limited") selected @endif>Mercantile Bank Limited</option>
+                                <option value="Midland Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Midland Bank Limited") selected @endif>Midland Bank Limited</option>
+                                <option value="Modhumoti Bank Ltd" @if($donation->patientProfile->paymentInfo->bankName == "Modhumoti Bank Ltd") selected @endif>Modhumoti Bank Ltd.</option>
+                                <option value="Mutual Trust Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Mutual Trust Bank Limited") selected @endif>Mutual Trust Bank Limited</option>
+                                <option value="National Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "National Bank Limited") selected @endif>National Bank Limited</option>
+                                <option value="National Bank of Pakistan" @if($donation->patientProfile->paymentInfo->bankName == "National Bank of Pakistan") selected @endif>National Bank of Pakistan</option>
+                                <option value="National Credit & Commerce Bank Ltd" @if($donation->patientProfile->paymentInfo->bankName == "National Credit & Commerce Bank Ltd") selected @endif>National Credit & Commerce Bank Ltd</option>
+                                <option value="NRB Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "NRB Bank Limited") selected @endif>NRB Bank Limited</option>
+                                <option value="NRB Commercial Bank Limited"> @if($donation->patientProfile->paymentInfo->bankName == "NRB Commercial Bank Limited") selected @endif>NRB Commercial Bank Limited</option>
+                                <option value="NRB Global Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "NRB Global Bank Limited") selected @endif>NRB Global Bank Limited</option>
+                                <option value="One Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "One Bank Limited") selected @endif>One Bank Limited</option>
+                                <option value="Palli Sanchay Bank" @if($donation->patientProfile->paymentInfo->bankName == "Palli Sanchay Bank") selected @endif>Palli Sanchay Bank</option>
+                                <option value="Premier Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Premier Bank Limited") selected @endif>Premier Bank Limited</option>
+                                <option value="Prime Bank Ltd" @if($donation->patientProfile->paymentInfo->bankName == "Prime Bank Ltd") selected @endif>Prime Bank Ltd</option>
+                                <option value="Pubali Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Pubali Bank Limited") selected @endif>Pubali Bank Limited</option>
+                                <option value="Rajshahi Krishi Unnayan Bank" @if($donation->patientProfile->paymentInfo->bankName == "Rajshahi Krishi Unnayan Bank") selected @endif>Rajshahi Krishi Unnayan Bank</option>
+                                <option value="Rupali Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Rupali Bank Limited") selected @endif>Rupali Bank Limited</option>
+                                <option value="Shahjalal Islami Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Shahjalal Islami Bank Limited") selected @endif>Shahjalal Islami Bank Limited</option>
+                                <option value="Shimanto Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Shimanto Bank Limited") selected @endif>Shimanto Bank Limited</option>
+                                <option value="Social Islami Bank Ltd" @if($donation->patientProfile->paymentInfo->bankName == "Social Islami Bank Ltd") selected @endif>Social Islami Bank Ltd.</option>
+                                <option value="Sonali Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Sonali Bank Limited") selected @endif>Sonali Bank Limited</option>
+                                <option value="Southeast Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Southeast Bank Limited") selected @endif>Southeast Bank Limited</option>
+                                <option value="Standard Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Standard Bank Limited") selected @endif>Standard Bank Limited</option>
+                                <option value="Standard Chartered Bank" @if($donation->patientProfile->paymentInfo->bankName == "Standard Chartered Bank") selected @endif>Standard Chartered Bank</option>
+                                <option value="State Bank of India" @if($donation->patientProfile->paymentInfo->bankName == "State Bank of India") selected @endif>State Bank of India</option>
+                                <option value="The City Bank Ltd" @if($donation->patientProfile->paymentInfo->bankName == "The City Bank Ltd") selected @endif>The City Bank Ltd.</option>
+                                <option value="The Farmers Bank Ltd" @if($donation->patientProfile->paymentInfo->bankName == "The Farmers Bank Ltd") selected @endif>The Farmers Bank Ltd</option>
+                                <option value="The Hong Kong and Shanghai Banking Corporation Ltd" @if($donation->patientProfile->paymentInfo->bankName == "The Hong Kong and Shanghai Banking Corporation Ltd") selected @endif>The Hong Kong and Shanghai Banking Corporation Ltd.</option>
+                                <option value="Trust Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Trust Bank Limited") selected @endif>Trust Bank Limited</option>
+                                <option value="Union Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Union Bank Limited") selected @endif>Union Bank Limited</option>
+                                <option value="United Commercial Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "United Commercial Bank Limited") selected @endif>United Commercial Bank Limited</option>
+                                <option value="Uttara Bank Limited" @if($donation->patientProfile->paymentInfo->bankName == "Uttara Bank Limited") selected @endif>Uttara Bank Limited</option>
+                                <option value="Woori Bank" @if($donation->patientProfile->paymentInfo->bankName == "Woori Bank") selected @endif>Woori Bank</option>
+                            </select>
+                            @else
+                            <select class="form-control" name="bankName" id="bankName">
+                                <option value="AB Bank Limited">AB Bank Limited</option>
+                                <option value="Agrani Bank Limited">Agrani Bank Limited</option>
+                                <option value="Al-Arafah Islami Bank Limited">Al-Arafah Islami Bank Limited</option>
+                                <option value="Bangladesh Commerce Bank Limited">Bangladesh Commerce Bank Limited</option>
+                                <option value="Bangladesh Development Bank Limited">Bangladesh Development Bank Limited</option>
+                                <option value="Bangladesh Krishi Bank">Bangladesh Krishi Bank</option>
+                                <option value="Bank Al-Falah Limited">Bank Al-Falah Limited</option>
+                                <option value="Bank Asia Limited">Bank Asia Limited</option>
+                                <option value="BASIC Bank Limited">BASIC Bank Limited</option>
+                                <option value="BRAC Bank Limited">BRAC Bank Limited</option>
+                                <option value="Citibank N.A">Citibank N.A</option>
+                                <option value="Commercial Bank of Ceylon Limited">Commercial Bank of Ceylon Limited</option>
+                                <option value="Dhaka Bank Limited">Dhaka Bank Limited</option>
+                                <option value="Dutch-Bangla Bank Limited">Dutch-Bangla Bank Limited</option>
+                                <option value="Eastern Bank Limited">Eastern Bank Limited</option>
+                                <option value="EXIM Bank Limited">EXIM Bank Limited</option>
+                                <option value="First Security Islami Bank Limited">First Security Islami Bank Limited</option>
+                                <option value="Habib Bank Ltd">Habib Bank Ltd.</option>
+                                <option value="ICB Islamic Bank Ltd">ICB Islamic Bank Ltd.</option>
+                                <option value="IFIC Bank Limited">IFIC Bank Limited</option>
+                                <option value="Islami Bank Bangladesh Ltd">Islami Bank Bangladesh Ltd</option>
+                                <option value="Jamuna Bank Ltd">Jamuna Bank Ltd</option>
+                                <option value="Janata Bank Limited">Janata Bank Limited</option>
+                                <option value="Meghna Bank Limited">Meghna Bank Limited</option>
+                                <option value="Mercantile Bank Limited">Mercantile Bank Limited</option>
+                                <option value="Midland Bank Limited">Midland Bank Limited</option>
+                                <option value="Modhumoti Bank Ltd">Modhumoti Bank Ltd.</option>
+                                <option value="Mutual Trust Bank Limited">Mutual Trust Bank Limited</option>
+                                <option value="National Bank Limited">National Bank Limited</option>
+                                <option value="National Bank of Pakistan">National Bank of Pakistan</option>
+                                <option value="National Credit & Commerce Bank Ltd">National Credit & Commerce Bank Ltd</option>
+                                <option value="NRB Bank Limited">NRB Bank Limited</option>
+                                <option value="NRB Commercial Bank Limited">NRB Commercial Bank Limited</option>
+                                <option value="NRB Global Bank Limited">NRB Global Bank Limited</option>
+                                <option value="One Bank Limited">One Bank Limited</option>
+                                <option value="Palli Sanchay Bank">Palli Sanchay Bank</option>
+                                <option value="Premier Bank Limited">Premier Bank Limited</option>
+                                <option value="Prime Bank Ltd">Prime Bank Ltd</option>
+                                <option value="Pubali Bank Limited">Pubali Bank Limited</option>
+                                <option value="Rajshahi Krishi Unnayan Bank">Rajshahi Krishi Unnayan Bank</option>
+                                <option value="Rupali Bank Limited">Rupali Bank Limited</option>
+                                <option value="Shahjalal Islami Bank Limited">Shahjalal Islami Bank Limited</option>
+                                <option value="Shimanto Bank Limited">Shimanto Bank Limited</option>
+                                <option value="Social Islami Bank Ltd">Social Islami Bank Ltd.</option>
+                                <option value="Sonali Bank Limited">Sonali Bank Limited</option>
+                                <option value="Sonali Bank Limited">Sonali Bank Limited</option>
+                                <option value="Southeast Bank Limited">Southeast Bank Limited</option>
+                                <option value="Standard Bank Limited">Standard Bank Limited</option>
+                                <option value="Standard Chartered Bank">Standard Chartered Bank</option>
+                                <option value="State Bank of India">State Bank of India</option>
+                                <option value="The City Bank Ltd">The City Bank Ltd.</option>
+                                <option value="The Farmers Bank Ltd">The Farmers Bank Ltd</option>
+                                <option value="The Hong Kong and Shanghai Banking Corporation Ltd">The Hong Kong and Shanghai Banking Corporation Ltd.</option>
+                                <option value="Trust Bank Limited">Trust Bank Limited</option>
+                                <option value="Union Bank Limited">Union Bank Limited</option>
+                                <option value="United Commercial Bank Limited">United Commercial Bank Limited</option>
+                                <option value="Uttara Bank Limited">Uttara Bank Limited</option>
+                                <option value="Woori Bank">Woori Bank</option>
+                            </select>
+                            @endif
                         </div>
                         <div class="form-group col-md-6">
                             <label for="bankBranch">Bank Branch</label>
@@ -195,14 +378,76 @@
                     <div class="form-row border p-2 box_shadow">
                         <div class="form-group col-md-6">
                             <label for="paymentType">Payment Type</label>
-                            <input type="text" class="form-control" id="paymentType" name="paymentType" placeholder="Enter payment type">
+                            <select name="paymentType" id="paymentType" class="form-control">
+                                <option value="bank transfer">Bank Transfer</option>
+                                <option value="cash">Cash</option>
+                            </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="bankName">Bank Name</label>
-                            <input type="text" class="form-control" id="bankName" name="bankName" placeholder="Enter bank name">
+                            <select class="form-control" name="bankName" id="bankName">
+                                <option value="AB Bank Limited">AB Bank Limited</option>
+                                <option value="Agrani Bank Limited">Agrani Bank Limited</option>
+                                <option value="Al-Arafah Islami Bank Limited">Al-Arafah Islami Bank Limited</option>
+                                <option value="Bangladesh Commerce Bank Limited">Bangladesh Commerce Bank Limited</option>
+                                <option value="Bangladesh Development Bank Limited">Bangladesh Development Bank Limited</option>
+                                <option value="Bangladesh Krishi Bank">Bangladesh Krishi Bank</option>
+                                <option value="Bank Al-Falah Limited">Bank Al-Falah Limited</option>
+                                <option value="Bank Asia Limited">Bank Asia Limited</option>
+                                <option value="BASIC Bank Limited">BASIC Bank Limited</option>
+                                <option value="BRAC Bank Limited">BRAC Bank Limited</option>
+                                <option value="Citibank N.A">Citibank N.A</option>
+                                <option value="Commercial Bank of Ceylon Limited">Commercial Bank of Ceylon Limited</option>
+                                <option value="Dhaka Bank Limited">Dhaka Bank Limited</option>
+                                <option value="Dutch-Bangla Bank Limited">Dutch-Bangla Bank Limited</option>
+                                <option value="Eastern Bank Limited">Eastern Bank Limited</option>
+                                <option value="EXIM Bank Limited">EXIM Bank Limited</option>
+                                <option value="First Security Islami Bank Limited">First Security Islami Bank Limited</option>
+                                <option value="Habib Bank Ltd">Habib Bank Ltd.</option>
+                                <option value="ICB Islamic Bank Ltd">ICB Islamic Bank Ltd.</option>
+                                <option value="IFIC Bank Limited">IFIC Bank Limited</option>
+                                <option value="Islami Bank Bangladesh Ltd">Islami Bank Bangladesh Ltd</option>
+                                <option value="Jamuna Bank Ltd">Jamuna Bank Ltd</option>
+                                <option value="Janata Bank Limited">Janata Bank Limited</option>
+                                <option value="Meghna Bank Limited">Meghna Bank Limited</option>
+                                <option value="Mercantile Bank Limited">Mercantile Bank Limited</option>
+                                <option value="Midland Bank Limited">Midland Bank Limited</option>
+                                <option value="Modhumoti Bank Ltd">Modhumoti Bank Ltd.</option>
+                                <option value="Mutual Trust Bank Limited">Mutual Trust Bank Limited</option>
+                                <option value="National Bank Limited">National Bank Limited</option>
+                                <option value="National Bank of Pakistan">National Bank of Pakistan</option>
+                                <option value="National Credit & Commerce Bank Ltd">National Credit & Commerce Bank Ltd</option>
+                                <option value="NRB Bank Limited">NRB Bank Limited</option>
+                                <option value="NRB Commercial Bank Limited">NRB Commercial Bank Limited</option>
+                                <option value="NRB Global Bank Limited">NRB Global Bank Limited</option>
+                                <option value="One Bank Limited">One Bank Limited</option>
+                                <option value="Palli Sanchay Bank">Palli Sanchay Bank</option>
+                                <option value="Premier Bank Limited">Premier Bank Limited</option>
+                                <option value="Prime Bank Ltd">Prime Bank Ltd</option>
+                                <option value="Pubali Bank Limited">Pubali Bank Limited</option>
+                                <option value="Rajshahi Krishi Unnayan Bank">Rajshahi Krishi Unnayan Bank</option>
+                                <option value="Rupali Bank Limited">Rupali Bank Limited</option>
+                                <option value="Shahjalal Islami Bank Limited">Shahjalal Islami Bank Limited</option>
+                                <option value="Shimanto Bank Limited">Shimanto Bank Limited</option>
+                                <option value="Social Islami Bank Ltd">Social Islami Bank Ltd.</option>
+                                <option value="Sonali Bank Limited">Sonali Bank Limited</option>
+                                <option value="Sonali Bank Limited">Sonali Bank Limited</option>
+                                <option value="Southeast Bank Limited">Southeast Bank Limited</option>
+                                <option value="Standard Bank Limited">Standard Bank Limited</option>
+                                <option value="Standard Chartered Bank">Standard Chartered Bank</option>
+                                <option value="State Bank of India">State Bank of India</option>
+                                <option value="The City Bank Ltd">The City Bank Ltd.</option>
+                                <option value="The Farmers Bank Ltd">The Farmers Bank Ltd</option>
+                                <option value="The Hong Kong and Shanghai Banking Corporation Ltd">The Hong Kong and Shanghai Banking Corporation Ltd.</option>
+                                <option value="Trust Bank Limited">Trust Bank Limited</option>
+                                <option value="Union Bank Limited">Union Bank Limited</option>
+                                <option value="United Commercial Bank Limited">United Commercial Bank Limited</option>
+                                <option value="Uttara Bank Limited">Uttara Bank Limited</option>
+                                <option value="Woori Bank">Woori Bank</option>
+                            </select>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="bankBranch">bankBranch</label>
+                            <label for="bankBranch">Bank Branch</label>
                             <input type="text" class="form-control" id="bankBranch" name="bankBranch" placeholder="Enter Bank Branch">
                         </div>
                         <div class="form-group col-md-6">
