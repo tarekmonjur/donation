@@ -132,6 +132,10 @@
                 'autoWidth'   : false
             });
         });
+
+        function showLoading() {
+            $.busyLoadFull("show", {});
+        }
     </script>
 @yield('script')
 </body>

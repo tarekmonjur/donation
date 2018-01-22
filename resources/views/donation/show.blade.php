@@ -110,6 +110,10 @@
                                 <a class="btn btn-sm btn-success" href="#" onclick="return confirmAction('verify','Are you sure verify this?','{{url('/donations/verify/'.$donation->{'_id'}.'/1')}}')">Verify</a>
                             @endif
                         @endif
+
+                        @if($auth->user_type != "company")
+                            <a class="btn btn-sm btn-primary" href="{{url('/donations/edit/'.$donation->{'_id'})}}">Edit</a>
+                        @endif
                     </td>
                 </tr>
                 </tbody>
@@ -311,36 +315,53 @@
                         <th>Amount</th>
                         @if($auth->user_type == "company")
                         <th>Status</th>
-                        @else
+                        @elseif($auth->user_type == "admin")
+                        <th>Status</th>
                         <th>Action</th>
                         @endif
                     </tr>
                     </thead>
                     <tbody>
                     @forelse($donation->funds as $fund)
-                        @if($fund->isVerified == true)
-                        <tr>
-                            <td>{{$fund->donatorName}}</td>
-                            <td>{{$fund->donatorMobile}}</td>
-                            <td>{{$fund->donatorEmail}}</td>
-                            <td>{{date("d M Y",strtotime($fund->donatedAt))}}</td>
-                            <td>@if($fund->isAppUser) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
-                            <td>@if($fund->isIndividual) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
-                            <td>{{$fund->donatedAmount}}</td>
-                            @if($auth->user_type == "company")
-                            <td>
-                                <label class="badge badge-success">Verified</label>
-                            </td>
-                            @else
-                            <td>
-                                @if($fund->isVerified == false)
-                                    <a class="btn btn-success btn-sm" onclick="confirmAction('Verified','Are you sure verify this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/1')}}')" href="#">Verified</a>
-                                @else
-                                    <a class="btn btn-danger btn-sm" onclick="confirmAction('Unverified','Are you sure Unverified this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/0')}}')" href="#">Unverified</a>
-                                @endif
-                            </td>
+                        @if($auth->user_type == "company")
+                            @if($fund->isVerified == true)
+                            <tr>
+                                <td>{{$fund->donatorName}}</td>
+                                <td>{{$fund->donatorMobile}}</td>
+                                <td>{{$fund->donatorEmail}}</td>
+                                <td>{{date("d M Y",strtotime($fund->donatedAt))}}</td>
+                                <td>@if($fund->isAppUser) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
+                                <td>@if($fund->isIndividual) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
+                                <td>{{$fund->donatedAmount}}</td>
+                                <td>
+                                    <label class="badge badge-success">Verified</label>
+                                </td>
+                            </tr>
                             @endif
-                        </tr>
+                        @elseif($auth->user_type == "admin")
+                            <tr>
+                                <td>{{$fund->donatorName}}</td>
+                                <td>{{$fund->donatorMobile}}</td>
+                                <td>{{$fund->donatorEmail}}</td>
+                                <td>{{date("d M Y",strtotime($fund->donatedAt))}}</td>
+                                <td>@if($fund->isAppUser) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
+                                <td>@if($fund->isIndividual) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
+                                <td>{{$fund->donatedAmount}}</td>
+                                <td>
+                                    @if($fund->isVerified == true)
+                                    <label class="badge badge-success">Verified</label>
+                                    @else
+                                    <label class="badge badge-danger">Unverified</label>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($fund->isVerified == false)
+                                        <a class="btn btn-success btn-sm" onclick="confirmAction('Verified','Are you sure verify this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/1')}}')" href="#">Verified</a>
+                                    @else
+                                        <a class="btn btn-danger btn-sm" onclick="confirmAction('Unverified','Are you sure Unverified this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/0')}}')" href="#">Unverified</a>
+                                    @endif
+                                </td>
+                            </tr>
                         @endif
                     @empty
                         <tr>

@@ -87,7 +87,7 @@
                                 <a class="btn btn-sm btn-success" href="#" onclick="return confirmAction('verify','Are you sure verify this?','{{url('/donations/verify/'.$donation->{'_id'}.'/1')}}')">Verify</a>
                             @endif
                         @endif
-                        <a class="btn btn-sm btn-primary" href="{{url('/donations/edit/'.$donation->{'_id'})}}">Edit</a>
+                        <a class="btn btn-sm btn-primary" href="{{url('/donations/edit/'.$donation->{'_id'})}}" onclick="showLoading()">Edit</a>
                     </div>
                 </td>
                 @endif

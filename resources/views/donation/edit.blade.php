@@ -110,7 +110,7 @@
                             <input type="text" class="form-control" id="bankName" name="bankName" value="{{$donation->patientProfile->paymentInfo->bankName}}" placeholder="Enter bank name">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="bankBranch">bankBranch</label>
+                            <label for="bankBranch">Bank Branch</label>
                             <input type="text" class="form-control" id="bankBranch" name="bankBranch" value="{{$donation->patientProfile->paymentInfo->bankBranch}}" placeholder="Enter Bank Branch">
                         </div>
                         <div class="form-group col-md-6">
@@ -228,7 +228,8 @@
                 @endif
 
 
-                <button type="submit" class="btn btn-primary pull-right mt-3 mb-5">Update Donation</button>
+                <button type="submit" class="btn btn-primary pull-right mt-3 mb-5 ml-3" onclick="showLoading()">Update Donation</button>
+                <a href="{{url('donations/'.$donation->_id)}}" class="btn btn-info pull-right mt-3 mb-5 ml-3">View Details</a>
             </form>
         </div>
     </div>
