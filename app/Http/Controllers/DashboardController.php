@@ -112,6 +112,7 @@ class DashboardController extends Controller
 
         $byMonthFundCollection_year = [];
         $byMonthFundCollection_amount = [];
+
         foreach($reports->byMonthFundCollection as $byMonthFundCollection){
             $byMonthFundCollection_year[] = $byMonthFundCollection->yearMonth;
             $byMonthFundCollection_amount[] = $byMonthFundCollection->amount;

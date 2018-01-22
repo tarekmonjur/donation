@@ -164,6 +164,39 @@
             </div>
         </div>
         <br>
+        {{--<div class="row" id="comments">--}}
+            {{--<div class="col-md-12 table-responsive">--}}
+                {{--<h4>Comments</h4>--}}
+                {{--<table id="datatable1" class="table table-sm table-bordered">--}}
+                    {{--<thead class="thead-dark">--}}
+                    {{--<tr>--}}
+                        {{--<th>Id</th>--}}
+                        {{--<th>Name</th>--}}
+                        {{--<th>Comment</th>--}}
+                        {{--<th>Date</th>--}}
+                        {{--<th>Action</th>--}}
+                    {{--</tr>--}}
+                    {{--</thead>--}}
+                    {{--<tbody>--}}
+                    {{--@forelse($doctor->comment as $comment)--}}
+                        {{--<tr>--}}
+                            {{--<td>{{$comment->id}}</td>--}}
+                            {{--<td>{{$comment->name}}</td>--}}
+                            {{--<td>{{$comment->comment}}</td>--}}
+                            {{--<td>{{$comment->at}}</td>--}}
+                            {{--<td>--}}
+
+                            {{--</td>--}}
+                        {{--</tr>--}}
+                    {{--@empty--}}
+                        {{--<tr>--}}
+                            {{--<td colspan="5"></td>--}}
+                        {{--</tr>--}}
+                    {{--@endforelse--}}
+                    {{--</tbody>--}}
+                {{--</table>--}}
+            {{--</div>--}}
+        {{--</div>--}}
     </section>
 
     <!-- Modal -->

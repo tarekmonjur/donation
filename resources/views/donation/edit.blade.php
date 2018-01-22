@@ -21,7 +21,7 @@
     <h4>Edit Donation</h4>
     <div class="row">
         <div class="col-md-12">
-            <form method="post" action="{{url('donations/edit')}}" enctype="multipart/form-data">
+            <form id="donation_form" method="post" action="{{url('donations/edit')}}" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <input type="hidden" value="{{$donation->_id}}" name="id">
                 <input type="hidden" value="{{$donation->title}}" name="title">
@@ -77,7 +77,75 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="city">City</label>
+                        @if(isset($donation->patientProfile->city))
+                        <select name="city" id="city" class="form-control">
+                             <option value="Bandarban" @if($donation->patientProfile->city == 'Bandarban') selected @endif>Bandarban</option>
+                             <option value="Barguna" @if($donation->patientProfile->city == 'Barguna') selected @endif>Barguna</option>
+                             <option value="Barisal" @if($donation->patientProfile->city == 'Barisal') selected @endif>Barisal</option>
+                             <option value="Bhola" @if($donation->patientProfile->city == 'Bhola') selected @endif>Bhola</option>
+                             <option value="Bogra" @if($donation->patientProfile->city == 'Bogra') selected @endif>Bogra</option>
+                             <option value="Brahmanbaria" @if($donation->patientProfile->city == 'Brahmanbaria') selected @endif>Brahmanbaria</option>
+                             <option value="Chandpur" @if($donation->patientProfile->city == 'Chandpur') selected @endif>Chandpur</option>
+                             <option value="Chapainababganj" @if($donation->patientProfile->city == 'Chapainababganj') selected @endif>Chapainababganj</option>
+                             <option value="Chittagong" @if($donation->patientProfile->city == 'Chittagong') selected @endif>Chittagong</option>
+                             <option value="Chuadanga" @if($donation->patientProfile->city == 'Chuadanga') selected @endif>Chuadanga</option>
+                             <option value="Comilla" @if($donation->patientProfile->city == 'Comilla') selected @endif>Comilla</option>
+                             <option value="Coxs bazar" @if($donation->patientProfile->city == 'Coxs bazar') selected @endif>Cox's bazar</option>
+                             <option value="Dhaka" @if($donation->patientProfile->city == 'Dhaka') selected @endif>Dhaka</option>
+                             <option value="Dinajpur" @if($donation->patientProfile->city == 'Dinajpur') selected @endif>Dinajpur</option>
+                             <option value="Faridpur" @if($donation->patientProfile->city == 'Faridpur') selected @endif>Faridpur</option>
+                             <option value="Feni" @if($donation->patientProfile->city == 'Feni') selected @endif>Feni</option>
+                             <option value="Gaibandha" @if($donation->patientProfile->city == 'Gaibandha') selected @endif>Gaibandha</option>
+                             <option value="Gazipur" @if($donation->patientProfile->city == 'Gazipur') selected @endif>Gazipur</option>
+                             <option value="Gopalganj" @if($donation->patientProfile->city == 'Gopalganj') selected @endif>Gopalganj</option>
+                             <option value="Habiganj" @if($donation->patientProfile->city == 'Habiganj') selected @endif>Habiganj</option>
+                             <option value="Jamalpur" @if($donation->patientProfile->city == 'Jamalpur') selected @endif>Jamalpur</option>
+                             <option value="Jessore" @if($donation->patientProfile->city == 'Jessore') selected @endif>Jessore</option>
+                             <option value="Jhalokati" @if($donation->patientProfile->city == 'Jhalokati') selected @endif>Jhalokati</option>
+                             <option value="Jhenaidah" @if($donation->patientProfile->city == 'Jhenaidah') selected @endif>Jhenaidah</option>
+                             <option value="Joypurhat" @if($donation->patientProfile->city == 'Joypurhat') selected @endif>Joypurhat</option>
+                             <option value="Khagrachhari" @if($donation->patientProfile->city == 'Khagrachhari') selected @endif>Khagrachhari</option>
+                             <option value="Khulna" @if($donation->patientProfile->city == 'Khulna') selected @endif>Khulna</option>
+                             <option value="Kishoregonj" @if($donation->patientProfile->city == 'Kishoregonj') selected @endif>Kishoregonj</option>
+                             <option value="Kurigram" @if($donation->patientProfile->city == 'Kurigram') selected @endif>Kurigram</option>
+                             <option value="Kushtia" @if($donation->patientProfile->city == 'Kushtia') selected @endif>Kushtia</option>
+                             <option value="Lakshmipur" @if($donation->patientProfile->city == 'Lakshmipur') selected @endif>Lakshmipur</option>
+                             <option value="Lalmonirhat" @if($donation->patientProfile->city == 'Lalmonirhat') selected @endif>Lalmonirhat</option>
+                             <option value="Madaripur" @if($donation->patientProfile->city == 'Madaripur') selected @endif>Madaripur</option>
+                             <option value="Magura" @if($donation->patientProfile->city == 'Magura') selected @endif>Magura</option>
+                             <option value="Manikganj" @if($donation->patientProfile->city == 'Manikganj') selected @endif>Manikganj</option>
+                             <option value="Maulvibazar" @if($donation->patientProfile->city == 'Maulvibazar') selected @endif>Maulvibazar</option>
+                             <option value="Meherpur" @if($donation->patientProfile->city == 'Meherpur') selected @endif>Meherpur</option>
+                             <option value="Munshiganj" @if($donation->patientProfile->city == 'Munshiganj') selected @endif>Munshiganj</option>
+                             <option value="Mymensingh" @if($donation->patientProfile->city == 'Mymensingh') selected @endif>Mymensingh</option>
+                             <option value="Naogaon" @if($donation->patientProfile->city == 'Naogaon') selected @endif>Naogaon</option>
+                             <option value="Narail" @if($donation->patientProfile->city == 'Narail') selected @endif>Narail</option>
+                             <option value="Narayanganj" @if($donation->patientProfile->city == 'Narayanganj') selected @endif>Narayanganj</option>
+                             <option value="Narsingdi" @if($donation->patientProfile->city == 'Narsingdi') selected @endif>Narsingdi</option>
+                             <option value="Natore" @if($donation->patientProfile->city == 'Natore') selected @endif>Natore</option>
+                             <option value="Netrakona" @if($donation->patientProfile->city == 'Netrakona') selected @endif>Netrakona</option>
+                             <option value="Nilphamari" @if($donation->patientProfile->city == 'Nilphamari') selected @endif>Nilphamari</option>
+                             <option value="Noakhali" @if($donation->patientProfile->city == 'Noakhali') selected @endif>Noakhali</option>
+                             <option value="Pabna" @if($donation->patientProfile->city == 'Pabna') selected @endif>Pabna</option>
+                             <option value="Panchagarh" @if($donation->patientProfile->city == 'Panchagarh') selected @endif>Panchagarh</option>
+                             <option value="Patuakhali" @if($donation->patientProfile->city == 'Patuakhali') selected @endif>Patuakhali</option>
+                             <option value="Pirojpur" @if($donation->patientProfile->city == 'Pirojpur') selected @endif>Pirojpur</option>
+                             <option value="Rajbari" @if($donation->patientProfile->city == 'Rajbari') selected @endif>Rajbari</option>
+                             <option value="Rajshahi" @if($donation->patientProfile->city == 'Rajshahi') selected @endif>Rajshahi</option>
+                             <option value="Rangamati" @if($donation->patientProfile->city == 'Rangamati') selected @endif>Rangamati</option>
+                             <option value="Rangpur" @if($donation->patientProfile->city == 'Rangpur') selected @endif>Rangpur</option>
+                             <option value="Satkhira" @if($donation->patientProfile->city == 'Satkhira') selected @endif>Satkhira</option>
+                             <option value="Shariatpur" @if($donation->patientProfile->city == 'Shariatpur') selected @endif>Shariatpur</option>
+                             <option value="Sherpur" @if($donation->patientProfile->city == 'Sherpur') selected @endif>Sherpur</option>
+                             <option value="Sirajganj" @if($donation->patientProfile->city == 'Sirajganj') selected @endif>Sirajganj</option>
+                             <option value="Sunamganj" @if($donation->patientProfile->city == 'Sunamganj') selected @endif>Sunamganj</option>
+                             <option value="Sylhet" @if($donation->patientProfile->city == 'Sylhet') selected @endif>Sylhet</option>
+                             <option value="Tangail" @if($donation->patientProfile->city == 'Tangail') selected @endif>Tangail</option>
+                             <option value="Thakurgaon" @if($donation->patientProfile->city == 'Thakurgaon') selected @endif>Thakurgaon</option>
+                        </select>
+                        @else
                         <input type="text" class="form-control" id="city" name="city" value="{{$donation->patientProfile->city or ''}}" placeholder="Enter city">
+                        @endif
                     </div>
                 </div>
                 @endif
@@ -94,7 +162,7 @@
                 <div class="form-row border p-2 box_shadow">
                     <div class="form-group col-md-4">
                         <label for="docs">Upload Document</label>
-                        <input type="file" class="form-control" id="docs" name="docs[]" multiple>
+                        <input type="file" class="form-control" id="docs" name="docs[]" accept="image/*" multiple>
                     </div>
                 </div>
 
@@ -103,7 +171,11 @@
                     <div class="form-row border p-2 box_shadow">
                         <div class="form-group col-md-6">
                             <label for="paymentType">Payment Type</label>
-                            <input type="text" class="form-control" id="paymentType" name="paymentType" value="{{$donation->patientProfile->paymentInfo->paymentType}}" placeholder="Enter payment type">
+                            <select name="paymentType" id="paymentType" class="form-control">
+                                <option value="bank transfer" @if($donation->patientProfile->paymentInfo->paymentType == "bank transfer") selected @endif>Bank Transfer</option>
+                                <option value="cash" @if($donation->patientProfile->paymentInfo->paymentType == "cash") selected @endif>Cash</option>
+                            </select>
+                            {{--<input type="text" class="form-control" id="paymentType" name="paymentType" value="{{$donation->patientProfile->paymentInfo->paymentType}}" placeholder="Enter payment type">--}}
                         </div>
                         <div class="form-group col-md-6">
                             <label for="bankName">Bank Name</label>

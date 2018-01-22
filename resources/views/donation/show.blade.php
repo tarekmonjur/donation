@@ -47,6 +47,7 @@
                 <li class="breadcrumb-item"><a href="#payment-info">Payment Info</a></li>
                 <li class="breadcrumb-item"><a href="#doctor-supporting">Doctors Supporting</a></li>
                 <li class="breadcrumb-item"><a href="#donation-fund">Donation Fund</a></li>
+                <li class="breadcrumb-item"><a href="#donation-comments">Donation Comments</a></li>
             </ol>
         </nav>
     </div>
@@ -358,7 +359,7 @@
                                     @if($fund->isVerified == false)
                                         <a class="btn btn-success btn-sm" onclick="confirmAction('Verified','Are you sure verify this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/1')}}')" href="#">Verified</a>
                                     @else
-                                        <a class="btn btn-danger btn-sm" onclick="confirmAction('Unverified','Are you sure Unverified this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/0')}}')" href="#">Unverified</a>
+                                        {{--<a class="btn btn-danger btn-sm" onclick="confirmAction('Unverified','Are you sure Unverified this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/0')}}')" href="#">Unverified</a>--}}
                                     @endif
                                 </td>
                             </tr>
@@ -376,6 +377,40 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+    <br>
+    <div class="row" id="donation-comments">
+        <div class="col-md-12 table-responsive">
+            <h4>Comments</h4>
+            <table id="datatable1" class="table table-sm table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Comment</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                @forelse($donation->comments as $comment)
+                    <tr>
+                        <td>{{$comment->id}}</td>
+                        <td>{{$comment->name}}</td>
+                        <td>{{$comment->comment}}</td>
+                        <td>{{$comment->at}}</td>
+                        <td>
+
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5"></td>
+                    </tr>
+                @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
 
