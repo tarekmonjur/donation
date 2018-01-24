@@ -17,11 +17,11 @@ class DonationApiController extends Controller
         $this->client = new Client(['cookies' => true, 'verify' => false]);
 
         if(env('DONATION_API_MODE') == 0) {
-            $this->apiUrl = "https://103.23.41.189:3000/api/admin/v1/";
+            $this->apiUrl = "http://103.23.41.189:3000/api/admin/v1/";
         }
         elseif(env('DONATION_API_MODE') == 1)
         {
-            $this->apiUrl = "https://localhost:5959/api/admin/v1/";
+            $this->apiUrl = "http://localhost:5959/api/admin/v1/";
         }
 
     }
