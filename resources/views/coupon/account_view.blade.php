@@ -54,6 +54,20 @@
                         @endif
                     </td>
                 </tr>
+                @if($auth->user_type == "admin")
+                <tr>
+                    <td style="font-weight: bold">Action</td>
+                    <td>
+                        <div class="btn-group">
+                            @if(isset($account->isActive) && $account->isActive === false)
+                                <a class="btn btn-sm btn-success" href="#" onclick="return confirmAction('Active','Are you sure active this?','{{url('/company-account/change-status/'.$account->accountNumber.'/1')}}')">Active</a>
+                            @else
+                                <a class="btn btn-sm btn-danger" href="#" onclick="return confirmAction('Inactive','Are you sure inactive this?','{{url('/company-account/change-status/'.$account->accountNumber.'/0')}}')">Inactive</a>
+                            @endif
+                        </div>
+                    </td>
+                </tr>
+                @endif
                 </tbody>
             </table>
         </div>

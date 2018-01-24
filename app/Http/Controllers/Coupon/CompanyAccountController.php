@@ -65,7 +65,7 @@ class CompanyAccountController extends Controller
     public function show(Request $request)
     {
 
-        if(!$this->auth->user_type != "admin"){
+        if($this->auth->user_type != "admin"){
             if(intval($this->auth->company_id) != intval($request->companyId)) {
                 return redirect()->back();
             }
@@ -87,9 +87,9 @@ class CompanyAccountController extends Controller
             return redirect()->back();
         }
 
-        $onHoldTxIds = isset($data['account']->onHoldTxIds)?:[];
-        $withdrawTxIds = isset($data['account']->withdrawTxIds)?:[];
-        $depositTxIds = isset($data['account']->depositTxIds)?:[];
+        $onHoldTxIds = isset($data['account']->onHoldTxIds)?$data['account']->onHoldTxIds:[];
+        $withdrawTxIds = isset($data['account']->withdrawTxIds)?$data['account']->withdrawTxIds:[];
+        $depositTxIds = isset($data['account']->depositTxIds)?$data['account']->depositTxIds:[];
 
         $data['txData'] = array_merge($onHoldTxIds, $withdrawTxIds, $depositTxIds);
 

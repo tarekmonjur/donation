@@ -63,6 +63,20 @@
                             @endif
                         </td>
                     </tr>
+                    @if($auth->user_type == "admin")
+                    <tr>
+                        <td style="font-weight: bold">Action</td>
+                        <td>
+                            <div class="btn-group">
+                                @if(isset($doctor->verifiedProgram) && $doctor->verifiedProgram === true)
+                                    {{--<a class="btn btn-xs btn-success" href="#" onclick="return confirmAction('unverified','Are you sure unverified this?','{{url('/doctors-program/verified/'.$doctor->id)}}')"></a>--}}
+                                @else
+                                    <a class="btn btn-sm btn-success" href="#" onclick="return confirmAction('verify','Are you sure verify this?','{{url('/doctors-program/verified/'.$doctor->id)}}')">Verified</a>
+                                @endif
+                            </div>
+                        </td>
+                    </tr>
+                    @endif
                     </tbody>
                 </table>
             </div>
