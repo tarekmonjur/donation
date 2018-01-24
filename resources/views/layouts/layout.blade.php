@@ -63,14 +63,14 @@
     </div>
 
 
-    <script src="{{asset('js/jquery-3.2.1.slim.min.js')}}"></script>
+    {{--<script src="{{asset('js/jquery-3.2.1.slim.min.js')}}"></script>--}}
     <script src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/sweetalert2.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <!-- busy-load -->
     <script src="{{asset('js/busy_loading.min.js')}}"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
     <script>
         var baseUrl = '{{url('/')}}';
 

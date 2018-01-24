@@ -36,7 +36,7 @@ class DashboardController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function __invoke()
+    public function __invoke(Request $request)
     {
         $reports = $this->httpClient->sendRequest($this->httpClient->apiUrl.'report/dashboard','GET',[]);
         $data['byStatusSummary'] = $reports->byStatusSummary;
@@ -124,6 +124,10 @@ class DashboardController extends Controller
             $data['chart_four'] = false;
         }else{
             $data['chart_four'] = true;
+        }
+
+        if($request->ajax()){
+            return response()->json($data);
         }
 
         return view('dashboard')->with($data);
