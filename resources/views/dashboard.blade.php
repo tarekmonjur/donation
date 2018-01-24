@@ -73,16 +73,26 @@
     <script src="{{asset('chart/modules/exporting.js')}}"></script>
     <script type="text/javascript">
         var baseUrl = '{{url('/')}}';
+        var authType = '{{$auth->user_type}}';
+//        console.log(authType);
+
         var byFundCollectionAmountSummary = JSON.parse('<?php echo $byFundCollectionAmountSummary;?>');
         var byContributorTypeFundCollection = JSON.parse('<?php echo $byContributorTypeFundCollection;?>');
         var byStatusFundCollection = JSON.parse('<?php echo $byStatusFundCollection;?>');
         var byMonthFundCollection_year = JSON.parse('<?php echo $byMonthFundCollection_year;?>');
         var byMonthFundCollection_amount = JSON.parse('<?php echo $byMonthFundCollection_amount;?>');
 //        console.log(byFundCollectionAmountSummary);
-        pichart1(byFundCollectionAmountSummary);
-        pichart2(byContributorTypeFundCollection);
-        pichart3(byStatusFundCollection);
-        linechart1(byMonthFundCollection_year, byMonthFundCollection_amount);
+
+        var ct1 = JSON.parse('<?php echo $chart_one;?>');
+        var ct2 = JSON.parse('<?php echo $chart_two;?>');
+        var ct3 = JSON.parse('<?php echo $chart_three;?>');
+        var ct4 = JSON.parse('<?php echo $chart_four;?>');
+
+        if(ct1 == true){pichart1(byFundCollectionAmountSummary);}
+        if(ct2 == true){pichart2(byContributorTypeFundCollection);}
+
+        if(authType == "admin" && ct3 == true){pichart3(byStatusFundCollection);}
+        if(authType == "admin" && ct4 == true){linechart1(byMonthFundCollection_year, byMonthFundCollection_amount);}
 
         $(document).ready(function () {
             setInterval(function(){
@@ -92,14 +102,23 @@
                     dataType: "json",
                     success: function (data) {
 //                        console.log(JSON.parse(data.byFundCollectionAmountSummary));
-                        document.getElementById('isPartial').innerHTML = data.byStatusSummary.isPartial;
-                        document.getElementById('isVerifiedOnly').innerHTML = data.byStatusSummary.isVerifiedOnly;
-                        document.getElementById('isActive').innerHTML = data.byStatusSummary.isActive;
+                        if(authType == "admin") {
+                            document.getElementById('isPartial').innerHTML = data.byStatusSummary.isPartial;
+                            document.getElementById('isVerifiedOnly').innerHTML = data.byStatusSummary.isVerifiedOnly;
+                            document.getElementById('isActive').innerHTML = data.byStatusSummary.isActive;
+                        }
 
-                        pichart1(JSON.parse(data.byFundCollectionAmountSummary));
-                        pichart2(JSON.parse(data.byContributorTypeFundCollection));
-                        pichart3(JSON.parse(data.byStatusFundCollection));
-                        linechart1(JSON.parse(data.byMonthFundCollection_year), JSON.parse(data.byMonthFundCollection_amount));
+                        var ct1 = data.chart_one;
+                        var ct2 = data.chart_two;
+                        var ct3 = data.chart_three;
+                        var ct4 = data.chart_four;
+
+//                        console.log(data,ct1,ct2);
+
+                        if(ct1 == true){pichart1(JSON.parse(data.byFundCollectionAmountSummary));}
+                        if(ct2 == true){pichart2(JSON.parse(data.byContributorTypeFundCollection));}
+                        if(authType == "admin" && ct3 == true){pichart3(JSON.parse(data.byStatusFundCollection));}
+                        if(authType == "admin" && ct4 == true){linechart1(JSON.parse(data.byMonthFundCollection_year), JSON.parse(data.byMonthFundCollection_amount));}
 
                     },
                     error: function (error) {
