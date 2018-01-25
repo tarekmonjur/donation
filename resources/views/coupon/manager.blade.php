@@ -26,7 +26,7 @@
             @foreach($coupons as $coupon)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td><a href="{{url('doctors-program/'.$coupon->_id)}}">{{$coupon->title}}</a></td>
+                    <td>{{$coupon->title}}</td>
                     <td>{{$coupon->serial}}</td>
                     <td>{{$coupon->code}}</td>
                     <td>{{$coupon->amount or '0'}}</td>
