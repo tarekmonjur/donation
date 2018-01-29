@@ -7,6 +7,12 @@
         <li class="nav-item">
             <a class="nav-link @if($menu == 'donations') active @endif" href="{{url('/donations')}}">Donation</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link @if($menu == 'doctor-list') active @endif" href="{{url('/doctor-list')}}">Doctors List</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @if($menu == 'medicine-list') active @endif" href="{{url('/medicine-list')}}">Medicine List</a>
+        </li>
 
         @if($auth->user_type == "admin" || $auth->user_type == "company")
             <li class="nav-item">
@@ -38,5 +44,6 @@
                 <a class="nav-link @if($menu == 'logs') active @endif" href="{{url('/logs')}}">Logs</a>
             </li>
         @endif
+
     </ul>
 </nav>

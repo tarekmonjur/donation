@@ -91,6 +91,12 @@ Route::group(['prefix'=>'company-account', 'namespace' => 'Coupon'],function(){
     Route::get('/{accountNumber}/{companyId}','CompanyAccountController@show');
 });
 
+//Doctor list
+Route::group(['prefix'=>'', 'namespace' => 'DoctorMedicine'],function(){
+    Route::get('/doctor-list','DoctorMedicineListController@getDoctorList');
+    Route::get('/medicine-list','DoctorMedicineListController@getMedicineList');
+});
+
 
 
 
