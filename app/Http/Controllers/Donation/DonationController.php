@@ -129,13 +129,13 @@ class DonationController extends Controller
 
     public function show($id)
     {
-
         $donation = $this->httpClient->sendRequest($this->httpClient->apiUrl.'program/'.$id,'GET', []);
         if($donation->success == true && $donation->data->donatePrograms) {
             $data['donation'] = $donation->data->donatePrograms;
         }else{
             return redirect('/donations');
         }
+        $data['companies'] = $this->companyList();
         return view('donation.show')->with($data);
     }
 
@@ -273,6 +273,39 @@ class DonationController extends Controller
         }else{
             $request->session()->flash("msg_error", $donation->msg);
         }
+        return redirect()->back();
+    }
+
+
+    public function addFund(Request $request)
+    {
+        if($this->auth->user_type != "company"){
+            return redirect()->back();
+        }
+
+        $param = [
+            'donationProgramId' => $request->donation_id,
+            'companyAccountNumber' => session('company_account')->accountNumber,
+            'fund' => [
+                'donatorName' => $this->auth->full_name,
+                'donatorMobile' => $this->auth->mobile_no,
+                'donatorEmail' => $this->auth->email,
+                'donatedAmount' => $request->donatedAmount,
+                'donatedAt' => date('Y-m-d h:i:s'),
+                'isAppUser' => false,
+                'isIndividual' => false,
+                'companyName' => session('company_account')->companyName,
+            ]
+        ];
+
+        $donation = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'donation/fund/add/pharma','POST', $param);
+
+        if($donation->success == true) {
+            $request->session()->flash("msg_success", $donation->msg);
+        }else{
+            $request->session()->flash("msg_error", $donation->msg);
+        }
+
         return redirect()->back();
     }
 

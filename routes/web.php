@@ -39,6 +39,7 @@ Route::group(['prefix'=>'donations', 'namespace' => 'Donation'],function(){
     Route::get('/verify/{id}/{status}','DonationController@verifyDonation');
     Route::get('/add','DonationController@create');
     Route::get('/{id}','DonationController@show');
+    Route::post('/add-fund/{donation_id}/','DonationController@addFund');
     Route::get('/fund-verify/{donation_id}/{fund_id}/{status}','DonationController@verifyFund');
     Route::get('/medical-records-doc/{id}','DonationController@getMedicalRecordDoc');
 

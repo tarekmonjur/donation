@@ -305,7 +305,11 @@
     <div class="row" id="donation-fund">
         <div class="col-md-12">
             <div class="table-responsive">
-                <h4>Donation Fund</h4>
+                <h4>Donation Fund
+                    @if($auth->user_type == "company")
+                    <a href="#" class="btn btn-sm btn-info pull-right" data-toggle="modal" data-target="#fundModal">Donate Fund</a>
+                    @endif
+                </h4>
                 <table class="table table-sm table-bordered">
                     <thead class="thead-dark">
                     <tr>
@@ -420,6 +424,8 @@
         </div>
     </div>
 
+
+
     <!-- Modal -->
     <div class="modal fade" id="docModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -428,6 +434,54 @@
             </div>
         </div>
     </div>
+
+    @if($auth->user_type == "company")
+    <!-- Add Fund Modal -->
+    <div class="modal" id="fundModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Donate Fund</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="coupon_form" method="post" action="{{url('donations/add-fund/'.$donation->id)}}">
+                    {{--<input type="hidden" name="donationProgramId" value="{{$donation->id}}">--}}
+                    {{--<input type="hidden" name="companyAccountNumber" value="{{$accountNumber}}">--}}
+                    {{csrf_field()}}
+                    <div class="modal-body">
+                        {{--<div class="form-group">--}}
+                            {{--<label for="donatorName">Donator Name</label>--}}
+                            {{--<input type="text" class="form-control form-control-sm" name="donatorName" id="donatorName" placeholder="Enter donator name">--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="donatorMobile">Donator Mobile</label>--}}
+                            {{--<input type="text" readonly class="form-control form-control-sm" name="donatorMobile" id="donatorMobile" placeholder="Enter donator mobile">--}}
+                        {{--</div>--}}
+                        <div class="form-group">
+                            <label for="donatedAmount">Donated Amount</label>
+                            <input type="text" class="form-control form-control-sm" name="donatedAmount" id="donatedAmount" value="0" placeholder="Enter donated amount">
+                        </div>
+                        {{--<div class="form-group">--}}
+                            {{--<label for="amount">Company Name</label>--}}
+                            {{--<select class="form-control" name="companyName" id="companyName">--}}
+                                {{--<option value="0">-- select company --</option>--}}
+                                {{--@foreach($companies as $company)--}}
+                                {{--<option value="{{$company->id}}" @if($company->id == $companyId)) selected @endif>{{$company->company_name}}</option>--}}
+                                {{--@endforeach--}}
+                            {{--</select>--}}
+                        {{--</div>--}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Donate</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endif
 </section>
 @endsection
 
