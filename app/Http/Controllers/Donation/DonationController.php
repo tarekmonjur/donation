@@ -127,6 +127,37 @@ class DonationController extends Controller
     }
 
 
+    public function pharmaVerifyFund(Request $request)
+    {
+        if($this->auth->user_type == "company"){
+            return redirect()->back();
+        }
+
+        $param = [
+            "donationProgramId" => $request->donation_id,
+            "fundId" => $request->fund_id,
+            "verificationStatus" => ($request->status == 1 || $request->status == '1')?true:false,
+            "remark" => [
+                "name" => $this->auth->full_name,
+                "comments" => $request->remarks
+            ]
+        ];
+
+//        dd($param);
+
+        $donation = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'donation/fund/verify/pharma','POST', $param);
+
+        if($donation->success == true) {
+            $request->session()->flash("msg_success", $donation->msg);
+        }else{
+            $request->session()->flash("msg_error", $donation->msg);
+        }
+
+//        dd($donation);
+        return redirect()->back();
+    }
+
+
     public function show($id)
     {
         $donation = $this->httpClient->sendRequest($this->httpClient->apiUrl.'program/'.$id,'GET', []);
@@ -135,6 +166,7 @@ class DonationController extends Controller
         }else{
             return redirect('/donations');
         }
+//        dd($data['donation']);
         $data['companies'] = $this->companyList();
         return view('donation.show')->with($data);
     }
@@ -298,6 +330,7 @@ class DonationController extends Controller
             ]
         ];
 
+
         $donation = $this->httpClient->sendRequestJson($this->httpClient->apiUrl.'donation/fund/add/pharma','POST', $param);
 
         if($donation->success == true) {
@@ -305,6 +338,8 @@ class DonationController extends Controller
         }else{
             $request->session()->flash("msg_error", $donation->msg);
         }
+
+//        dd($donation);
 
         return redirect()->back();
     }

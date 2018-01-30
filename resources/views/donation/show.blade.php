@@ -354,9 +354,9 @@
                                 <td>{{$fund->donatorEmail}}</td>
                                 <td>{{date("d M Y",strtotime($fund->donatedAt))}}</td>
                                 <td>
-                                    @if($fund->isAppUser == true) <span class="badge badge-success">{{$fund->userType or ''}}</span> @else <span class="badge badge-danger">{{$fund->userType or ''}}</span> @endif
+                                    @if($fund->isAppUser == true) <span class="badge badge-success">{{$fund->userType or ''}}</span> @else <span class="badge badge-info">{{$fund->userType or ''}}</span> @endif
                                 </td>
-                                <td>@if($fund->isIndividual) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
+                                <td>@if($fund->isIndividual == true) <span class="badge badge-success">Yes</span> @else <span class="badge badge-danger">No</span> @endif</td>
                                 <td>{{$fund->donatedAmount}}</td>
                                 <td>
                                     @if($fund->isVerified == true)
@@ -366,10 +366,18 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if($fund->isVerified == false)
-                                        <a class="btn btn-success btn-sm" onclick="confirmAction('Verify','Are you sure verify this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/1')}}')" href="#">Verify</a>
+                                    @if($fund->paymentThrough == "AFC_COUPON" && $fund->isAppUser == false && $fund->isIndividual == false)
+                                        @if($fund->isVerified == false)
+                                            <a class="btn btn-success btn-sm" onclick="verifyFund('{{url('/donations/pharma-fund-verify/'.$donation->_id.'/'.$fund->_id.'/1')}}')" href="#">Verify</a>
+                                        @else
+                                            <a class="btn btn-danger btn-sm" onclick="unverifyFund('{{url('/donations/pharma-fund-verify/'.$donation->_id.'/'.$fund->_id.'/0')}}')" href="#">Unverified</a>
+                                        @endif
                                     @else
-                                        <a class="btn btn-danger btn-sm" onclick="confirmAction('Unverified','Are you sure unverified this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/0')}}')" href="#">Unverified</a>
+                                        @if($fund->isVerified == false)
+                                            <a class="btn btn-success btn-sm" onclick="confirmAction('Verify','Are you sure verify this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/1')}}')" href="#">Verify</a>
+                                        @else
+                                            <a class="btn btn-danger btn-sm" onclick="confirmAction('Unverified','Are you sure unverified this fund?', '{{url('/donations/fund-verify/'.$donation->_id.'/'.$fund->_id.'/0')}}')" href="#">Unverified</a>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>
@@ -482,11 +490,69 @@
         </div>
     </div>
     @endif
+
+    <!-- Pharma Fund Verify Modal -->
+    <div class="modal" id="fundVerifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Donate Fund Verify</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="fund_verify_form" method="post" action="">
+                    {{csrf_field()}}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="remarks">Remarks</label>
+                            <textarea class="form-control form-control-sm" name="remarks" id="remarks" placeholder="enter remarks"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Verify</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Pharma Fund Unverify Modal -->
+    <div class="modal" id="fundUnverifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Donate Fund Unverified</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="fund_unverify_form" method="post" action="">
+                    {{csrf_field()}}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="remarks">Remarks</label>
+                            <textarea class="form-control form-control-sm" name="remarks" id="remarks" placeholder="enter remarks"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Unverified</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
 </section>
 @endsection
 
 @section('script')
-
+    <script src="{{asset('js/jquery.validate.js')}}"></script>
     <script>
         $(document).ready(function(){
            $(document).on("click", ".docView", function(){
@@ -494,6 +560,23 @@
               $("#viewDoc").html(img);
               $('#docModal').modal();
            });
+        });
+
+
+        function verifyFund(url){
+            document.getElementById('fund_verify_form').setAttribute('action', url);
+            $('#fundVerifyModal').modal();
+        }
+
+        function unverifyFund(url){
+            document.getElementById('fund_unverify_form').setAttribute('action', url);
+            $('#fundUnverifyModal').modal();
+        }
+
+        $("#fund_unverify_form").validate({
+            rules: {
+                remarks: "required",
+            }
         });
     </script>
 

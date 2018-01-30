@@ -121,10 +121,10 @@
                 <form id="coupon_form" method="post" action="{{url('company-account/deposit')}}">
                     {{csrf_field()}}
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="accountNumber">Account Number</label>
-                            <input type="text" class="form-control form-control-sm" name="accountNumber" id="accountNumber" placeholder="Enter account number">
-                        </div>
+                        {{--<div class="form-group">--}}
+                            {{--<label for="accountNumber">Account Number</label>--}}
+                            {{--<input type="text" class="form-control form-control-sm" name="accountNumber" id="accountNumber" placeholder="Enter account number">--}}
+                        {{--</div>--}}
                         <div class="form-group">
                             <label for="code">Code</label>
                             <input type="text" class="form-control form-control-sm" name="code" id="code" placeholder="Enter amount">
@@ -165,7 +165,6 @@
     <script>
         $("#coupon_form").validate({
             rules: {
-                accountNumber: "required",
                 code: "required",
                 serial: "required",
             }

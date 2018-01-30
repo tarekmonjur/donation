@@ -99,8 +99,10 @@ class CompanyAccountController extends Controller
 
     public function deposit(Request $request)
     {
+        $accountNumber = session('company_account')->accountNumber;
+
         $param = [
-            'accountNumber' =>  $request->accountNumber,
+            'accountNumber' =>  $accountNumber,
             'code' =>  $request->code,
             'serial' =>  $request->serial,
         ];
